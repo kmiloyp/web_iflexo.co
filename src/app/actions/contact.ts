@@ -1,8 +1,10 @@
 "use server";
 
 import { z } from "zod";
+import { headers } from "next/headers";
 import { Resend } from "resend";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
+import { rateLimit } from "@/lib/rate-limit";
 import { siteConfig } from "@/lib/config";
 
 const leadSchema = z.object({
@@ -27,6 +29,19 @@ export async function submitLead(
   // Honeypot anti-spam: campo oculto que un humano no llena.
   if ((formData.get("website") as string)?.trim()) {
     return { status: "success", message: "¡Gracias! Te contactaremos pronto." };
+  }
+
+  // Rate-limit por IP (best-effort): máx. 5 envíos por minuto.
+  const hdrs = await headers();
+  const ip =
+    hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    hdrs.get("x-real-ip") ||
+    "anon";
+  if (!rateLimit(`contact:${ip}`, { max: 5, windowMs: 60_000 }).ok) {
+    return {
+      status: "error",
+      message: "Demasiados envíos. Espera un momento e inténtalo de nuevo.",
+    };
   }
 
   const parsed = leadSchema.safeParse({

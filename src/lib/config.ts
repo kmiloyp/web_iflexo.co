@@ -107,3 +107,9 @@ export const footerNav = {
 /** Mensaje pre-cargado para los CTA de WhatsApp (cuando aplique). */
 export const waMessage =
   "Hola iFlexo, quiero información sobre sus servicios de preprensa flexográfica.";
+
+/** Testimonio en video (YouTube, canal de iFlexo). */
+export const videoTestimonial = {
+  id: "KbehumnrtVY",
+  title: "Testimonios iFlexo",
+};

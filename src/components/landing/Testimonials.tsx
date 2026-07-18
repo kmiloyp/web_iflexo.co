@@ -12,14 +12,16 @@ export function Testimonials({
   items,
   title = "Lo que dicen nuestros clientes",
   eyebrow = "Prueba social",
+  className,
 }: {
   items: Testimonial[];
   title?: string;
   eyebrow?: string;
+  className?: string;
 }) {
   if (!items.length) return null;
   return (
-    <Section>
+    <Section className={className}>
       <div className="max-w-2xl">
         <Eyebrow>{eyebrow}</Eyebrow>
         <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">

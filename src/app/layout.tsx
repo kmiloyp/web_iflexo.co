@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ConditionalChrome } from "@/components/ConditionalChrome";
 import { siteConfig } from "@/lib/config";
 
@@ -30,7 +32,6 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     siteName: siteConfig.name,
   },
-  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
@@ -40,6 +41,8 @@ export default function RootLayout({
     <html lang="es-CO" className={`${sora.variable} ${inter.variable}`}>
       <body className="min-h-dvh antialiased">
         <ConditionalChrome>{children}</ConditionalChrome>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

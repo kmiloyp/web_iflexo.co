@@ -5,6 +5,7 @@ import {
   Differentiator,
 } from "@/components/landing/sections";
 import { Testimonials } from "@/components/landing/Testimonials";
+import { VideoTestimonial } from "@/components/landing/VideoTestimonial";
 import { FAQ } from "@/components/landing/FAQ";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { ContactSection } from "@/components/ContactSection";
@@ -52,7 +53,9 @@ export function ProductLanding({ data }: { data: LandingData }) {
         />
       )}
 
-      <Testimonials items={testimonials} />
+      <VideoTestimonial />
+
+      <Testimonials items={testimonials} className="bg-sand" />
 
       <FAQ items={data.faq} />
 

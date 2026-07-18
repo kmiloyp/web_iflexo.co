@@ -24,9 +24,9 @@ export function buildMetadata({
   noIndex?: boolean;
 }): Metadata {
   const url = absoluteUrl(path);
-  const ogImages = (images ?? [absoluteUrl("/brand/logo-color.png")]).map(
-    (src) => ({ url: src })
-  );
+  // Si no se pasan imágenes, se usa la OG por defecto de marca
+  // (app/opengraph-image.tsx). Los artículos pasan su portada.
+  const ogImages = images?.map((src) => ({ url: src }));
 
   return {
     // `absolute` evita que la plantilla global añada de nuevo "| iFlexo".
@@ -40,13 +40,13 @@ export function buildMetadata({
       siteName: siteConfig.name,
       locale: siteConfig.locale,
       type,
-      images: ogImages,
+      ...(ogImages ? { images: ogImages } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ogImages.map((i) => i.url),
+      ...(ogImages ? { images: ogImages.map((i) => i.url) } : {}),
     },
     robots: noIndex ? { index: false, follow: false } : undefined,
   };

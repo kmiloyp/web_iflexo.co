@@ -2,6 +2,7 @@ import { Hero } from "@/components/landing/Hero";
 import { Benefits, Differentiator } from "@/components/landing/sections";
 import { ServicesGrid, BlogHighlights } from "@/components/landing/home-sections";
 import { Testimonials } from "@/components/landing/Testimonials";
+import { VideoTestimonial } from "@/components/landing/VideoTestimonial";
 import { testimonials } from "@/lib/landings";
 import { FAQ } from "@/components/landing/FAQ";
 import { ContactSection } from "@/components/ContactSection";
@@ -100,7 +101,9 @@ export default function Home() {
         items={benefits}
       />
 
-      <Testimonials items={testimonials} />
+      <VideoTestimonial />
+
+      <Testimonials items={testimonials} className="bg-sand" />
 
       <BlogHighlights />
 

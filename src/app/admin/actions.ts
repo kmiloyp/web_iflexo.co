@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { slugify } from "@/lib/utils";
+import { sanitizeArticleHtml } from "@/lib/sanitize";
 
 export type ArticlePayload = {
   id?: string;
@@ -48,7 +49,7 @@ export async function saveArticle(payload: ArticlePayload): Promise<SaveResult> 
     meta_title: payload.meta_title ?? null,
     meta_description: payload.meta_description ?? null,
     excerpt: payload.excerpt ?? null,
-    content_html: payload.content_html ?? "",
+    content_html: sanitizeArticleHtml(payload.content_html ?? ""),
     cover_image_url: payload.cover_image_url ?? null,
     cover_image_alt: payload.cover_image_alt ?? null,
     primary_keyword: payload.primary_keyword ?? null,
