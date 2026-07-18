@@ -1,26 +1,143 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   iFlexo — sistema de diseño
+   Identidad derivada del logo real: wordmark carbón + degradado
+   firma ámbar→naranja→coral→magenta + acento espectro (rueda de color).
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Tinta / texto */
+  --color-ink: #26262b;
+  --color-ink-soft: #46454e;
+  --color-muted: #6c6a72;
+
+  /* Degradado firma (stops del logo) */
+  --color-brand-amber: #fbb215;
+  --color-brand-orange: #f57c1f;
+  --color-brand-coral: #ee3f6d;
+  --color-brand-magenta: #c21a76;
+
+  /* Acento espectro (favicon "bola" / gestión de color) */
+  --color-spectrum-blue: #1b75bc;
+  --color-spectrum-teal: #00a6a0;
+  --color-spectrum-green: #43b02a;
+  --color-spectrum-purple: #5e2d91;
+
+  /* Neutrales cálidos */
+  --color-paper: #ffffff;
+  --color-sand: #faf8f5;
+  --color-mist: #f4f1ec;
+  --color-line: #e8e3db;
+
+  /* Tipografía (inyectada por next/font) */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), sans-serif;
+
+  /* Radios */
+  --radius-lg: 0.85rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-gradient: linear-gradient(
+    135deg,
+    #fbb215 0%,
+    #f57c1f 32%,
+    #ee3f6d 66%,
+    #c21a76 100%
+  );
+  --spectrum-gradient: conic-gradient(
+    from 210deg,
+    #f57c1f,
+    #fbb215,
+    #43b02a,
+    #00a6a0,
+    #1b75bc,
+    #5e2d91,
+    #c21a76,
+    #f57c1f
+  );
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Utilidades de marca ------------------------------------------------ */
+@layer utilities {
+  .bg-brand-gradient {
+    background-image: var(--brand-gradient);
+  }
+  .text-gradient {
+    background-image: var(--brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-spectrum {
+    background-image: var(--spectrum-gradient);
+  }
+  .ring-brand {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brand-coral) 25%, transparent);
+  }
+  /* Contenido del blog renderizado desde HTML (content_html) */
+  .prose-iflexo {
+    color: var(--color-ink-soft);
+    line-height: 1.75;
+  }
+  .prose-iflexo :where(h2) {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin: 2.2rem 0 0.9rem;
+  }
+  .prose-iflexo :where(h3) {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 1.8rem 0 0.6rem;
+  }
+  .prose-iflexo :where(p) {
+    margin: 0 0 1.1rem;
+  }
+  .prose-iflexo :where(a) {
+    color: var(--color-brand-coral);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-iflexo :where(ul, ol) {
+    margin: 0 0 1.1rem 1.25rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .prose-iflexo :where(ul) {
+    list-style: disc;
+  }
+  .prose-iflexo :where(ol) {
+    list-style: decimal;
+  }
+  .prose-iflexo :where(img) {
+    border-radius: var(--radius-xl);
+    margin: 1.5rem 0;
+  }
+  .prose-iflexo :where(blockquote) {
+    border-left: 3px solid var(--color-brand-coral);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--color-ink);
+    margin: 1.5rem 0;
+  }
 }

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "WebFetch(domain:iflexo.co)"
+    ]
+  }
+}
