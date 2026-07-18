@@ -11,6 +11,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/",
     "/nosotros/",
     "/fotopolimeros/",
+    "/soluciones/banda-ancha/",
+    "/soluciones/banda-angosta/",
     "/prueba-de-color/",
     "/reduccion-de-color/",
     "/contacto/",
