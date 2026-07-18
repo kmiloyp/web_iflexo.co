@@ -9,6 +9,7 @@ import {
   unpublishArticle,
   type ArticlePayload,
 } from "@/app/admin/actions";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { categories } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [message, setMessage] = useState<string | null>(null);
   const [publishing, setPublishing] = useState(false);
+  const [editMode, setEditMode] = useState<"visual" | "html">("visual");
   const firstRender = useRef(true);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -101,14 +103,47 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
           />
         </FieldBlock>
 
-        <FieldBlock label="Contenido (HTML)">
-          <textarea
-            value={article.content_html}
-            onChange={(e) => set("content_html", e.target.value)}
-            rows={22}
-            className="w-full rounded-xl border border-line bg-white px-4 py-3 font-mono text-sm leading-relaxed outline-none focus:border-brand-coral"
-          />
-        </FieldBlock>
+        <div>
+          <div className="mb-1.5 flex items-center justify-between">
+            <span className="text-sm font-medium text-ink">Contenido</span>
+            <div className="flex rounded-lg border border-line p-0.5 text-xs">
+              <button
+                type="button"
+                onClick={() => setEditMode("visual")}
+                className={cn(
+                  "rounded-md px-2.5 py-1 font-medium",
+                  editMode === "visual" ? "bg-ink text-white" : "text-muted"
+                )}
+              >
+                Visual
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditMode("html")}
+                className={cn(
+                  "rounded-md px-2.5 py-1 font-medium",
+                  editMode === "html" ? "bg-ink text-white" : "text-muted"
+                )}
+              >
+                HTML
+              </button>
+            </div>
+          </div>
+          {editMode === "visual" ? (
+            <RichTextEditor
+              key={`visual-${article.id ?? "new"}`}
+              initialValue={article.content_html}
+              onChange={(html) => set("content_html", html)}
+            />
+          ) : (
+            <textarea
+              value={article.content_html}
+              onChange={(e) => set("content_html", e.target.value)}
+              rows={22}
+              className="w-full rounded-xl border border-line bg-white px-4 py-3 font-mono text-sm leading-relaxed outline-none focus:border-brand-coral"
+            />
+          )}
+        </div>
 
         <FaqEditor
           faq={article.faq ?? []}

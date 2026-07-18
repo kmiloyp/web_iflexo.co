@@ -7,6 +7,8 @@ export const siteConfig = {
   name: "iFlexo Visión Gráfica",
   shortName: "iFlexo",
   legalName: "iFlexo Visión Gráfica S.A.S.",
+  nit: "900.569.733-8",
+  address: "Carrera 29A # 4A - 07",
   tagline: "Preprensa flexográfica de alto nivel",
   description:
     "Preprensa flexográfica en Colombia: planchas Kodak Flexcel NX, gestión y prueba de color certificada, y reducción de color. Más nitidez, menos desperdicio.",

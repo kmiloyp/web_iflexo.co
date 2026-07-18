@@ -141,3 +141,16 @@ body {
     margin: 1.5rem 0;
   }
 }
+
+/* Editor visual (TipTap) ------------------------------------------------ */
+.ProseMirror {
+  outline: none;
+  min-height: 22rem;
+}
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--color-muted);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

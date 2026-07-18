@@ -21,12 +21,9 @@ export default function PrivacyPolicyPage() {
 
       <h2>1. Responsable del tratamiento</h2>
       <p>
-        {siteConfig.legalName}
-        {" "}
-        {/* Completar con los datos legales de la empresa antes de publicar. */}
-        (NIT [por completar]), con domicilio en [dirección por completar],
-        operación en Bogotá y Medellín, Colombia. Correo de contacto:{" "}
-        {siteConfig.email}.
+        {siteConfig.legalName} (NIT {siteConfig.nit}), con domicilio en{" "}
+        {siteConfig.address}, operación en Bogotá y Medellín, Colombia. Correo
+        de contacto: {siteConfig.email}.
       </p>
 
       <h2>2. Datos que recolectamos</h2>

@@ -14,8 +14,10 @@ export default function AvisoLegalPage() {
     <LegalLayout title="Aviso legal" updated="julio de 2026">
       <h2>1. Titular del sitio</h2>
       <p>
-        El presente sitio web es operado por {siteConfig.legalName}, empresa de
-        preprensa flexográfica con sedes en Bogotá y Medellín, Colombia.
+        El presente sitio web es operado por {siteConfig.legalName} (NIT{" "}
+        {siteConfig.nit}), con domicilio en {siteConfig.address}, empresa de
+        preprensa flexográfica con sedes en Bogotá y Medellín, Colombia. Correo
+        de contacto: {siteConfig.email}.
       </p>
 
       <h2>2. Condiciones de uso</h2>

@@ -49,7 +49,8 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {siteConfig.legalName}. Todos los derechos reservados.
+            © {year} {siteConfig.legalName} · NIT {siteConfig.nit}. Todos los
+            derechos reservados.
           </p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {footerNav.legal.map((l) => (
