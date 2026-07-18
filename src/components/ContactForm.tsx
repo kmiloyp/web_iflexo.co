@@ -63,6 +63,34 @@ function Field({
   );
 }
 
+function SelectField({
+  label,
+  name,
+  options,
+}: {
+  label: string;
+  name: string;
+  options: { value: string; label: string }[];
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-sm font-medium text-ink">{label}</span>
+      <select
+        name={name}
+        defaultValue=""
+        className="h-11 w-full rounded-xl border border-line bg-white px-3 text-ink outline-none transition-colors focus:border-brand-coral"
+      >
+        <option value="">Selecciona…</option>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 export function ContactForm({ origen }: { origen?: string }) {
   const [state, formAction] = useActionState(submitLead, initial);
 
@@ -94,6 +122,30 @@ export function ContactForm({ origen }: { origen?: string }) {
         <Field label="Empresa" name="empresa" autoComplete="organization" error={state.errors?.empresa} />
         <Field label="Correo" name="correo" type="email" required autoComplete="email" error={state.errors?.correo} />
         <Field label="Teléfono" name="telefono" type="tel" required autoComplete="tel" error={state.errors?.telefono} />
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        <Field label="Ciudad" name="ciudad" autoComplete="address-level2" error={state.errors?.ciudad} />
+        <SelectField
+          label="Tipo de impresión"
+          name="tipo_impresion"
+          options={[
+            { value: "banda-angosta", label: "Banda angosta / etiquetas" },
+            { value: "banda-ancha", label: "Banda ancha / empaque" },
+            { value: "otro", label: "Otro" },
+          ]}
+        />
+        <SelectField
+          label="¿Qué necesitas?"
+          name="necesidad"
+          options={[
+            { value: "planchas", label: "Planchas / fotopolímeros" },
+            { value: "prueba-de-color", label: "Prueba de color" },
+            { value: "reduccion-de-color", label: "Reducción de color" },
+            { value: "servicios-graficos", label: "Servicios gráficos" },
+            { value: "asesoria", label: "Asesoría" },
+          ]}
+        />
       </div>
 
       <label className="block">

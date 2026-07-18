@@ -5,6 +5,8 @@ export type Testimonial = {
   quote: string;
   name: string;
   role?: string;
+  company?: string; // tipo de empresa, ej. "Impresor de etiquetas"
+  city?: string; // ej. "Bogotá"
   source?: "Google" | "YouTube" | string;
 };
 
@@ -45,8 +47,10 @@ export function Testimonials({
             </blockquote>
             <figcaption className="mt-5 border-t border-line pt-4">
               <span className="font-semibold text-ink">{t.name}</span>
-              {t.role && (
-                <span className="block text-sm text-muted">{t.role}</span>
+              {(t.role || t.company || t.city) && (
+                <span className="block text-sm text-muted">
+                  {[t.role, t.company, t.city].filter(Boolean).join(" · ")}
+                </span>
               )}
               {t.source && (
                 <span className="mt-1 inline-block text-xs font-medium uppercase tracking-wider text-brand-coral">

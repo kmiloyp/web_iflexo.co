@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Container } from "@/components/ui/Container";
+import { renderHighlighted } from "@/lib/text";
 
 export function Hero({
   eyebrow,
@@ -38,8 +39,16 @@ export function Hero({
           </span>
 
           <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
-            {title}{" "}
-            {highlight && <span className="text-gradient">{highlight}</span>}
+            {title.includes("**") ? (
+              renderHighlighted(title)
+            ) : (
+              <>
+                {title}{" "}
+                {highlight && (
+                  <span className="text-gradient">{highlight}</span>
+                )}
+              </>
+            )}
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">

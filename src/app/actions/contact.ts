@@ -12,6 +12,21 @@ const leadSchema = z.object({
   empresa: z.string().max(160).optional().or(z.literal("")),
   correo: z.string().email("Correo no válido").max(160),
   telefono: z.string().min(6, "Teléfono no válido").max(40),
+  ciudad: z.string().max(120).optional().or(z.literal("")),
+  tipo_impresion: z
+    .enum(["banda-angosta", "banda-ancha", "otro"])
+    .optional()
+    .or(z.literal("")),
+  necesidad: z
+    .enum([
+      "planchas",
+      "prueba-de-color",
+      "reduccion-de-color",
+      "servicios-graficos",
+      "asesoria",
+    ])
+    .optional()
+    .or(z.literal("")),
   mensaje: z.string().min(5, "Cuéntanos un poco más").max(2000),
   origen: z.string().max(160).optional().or(z.literal("")),
 });
@@ -49,6 +64,9 @@ export async function submitLead(
     empresa: formData.get("empresa"),
     correo: formData.get("correo"),
     telefono: formData.get("telefono"),
+    ciudad: formData.get("ciudad"),
+    tipo_impresion: formData.get("tipo_impresion"),
+    necesidad: formData.get("necesidad"),
     mensaje: formData.get("mensaje"),
     origen: formData.get("origen"),
   });
@@ -71,15 +89,26 @@ export async function submitLead(
   if (isAdminConfigured()) {
     try {
       const supabase = createAdminClient();
-      const { error } = await supabase.from("leads").insert({
+      const base = {
         nombre: lead.nombre,
         empresa: lead.empresa || null,
         correo: lead.correo,
         telefono: lead.telefono,
         mensaje: lead.mensaje,
         origen: lead.origen || null,
+      };
+      // Intento con los campos de calificación; si la migración 0003 aún no
+      // se corrió (columnas inexistentes), reintenta con los campos base.
+      const { error } = await supabase.from("leads").insert({
+        ...base,
+        ciudad: lead.ciudad || null,
+        tipo_impresion: lead.tipo_impresion || null,
+        necesidad: lead.necesidad || null,
       });
-      if (error) console.error("[contact] supabase insert:", error.message);
+      if (error) {
+        const { error: e2 } = await supabase.from("leads").insert(base);
+        if (e2) console.error("[contact] supabase insert:", e2.message);
+      }
     } catch (e) {
       console.error("[contact] supabase error:", e);
     }
@@ -103,6 +132,9 @@ export async function submitLead(
           `Empresa: ${lead.empresa || "-"}`,
           `Correo: ${lead.correo}`,
           `Teléfono: ${lead.telefono}`,
+          `Ciudad: ${lead.ciudad || "-"}`,
+          `Tipo de impresión: ${lead.tipo_impresion || "-"}`,
+          `Necesidad: ${lead.necesidad || "-"}`,
           `Origen: ${lead.origen || "-"}`,
           "",
           lead.mensaje,
