@@ -2,7 +2,7 @@ import { MapPin } from "lucide-react";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { ContactForm } from "@/components/ContactForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { locations } from "@/lib/config";
+import { sedes, comerciales } from "@/lib/config";
 
 export function ContactSection({
   origen,
@@ -28,7 +28,7 @@ export function ContactSection({
           <p className="mt-4 text-lg text-ink-soft">{subtitle}</p>
 
           <div className="mt-8 space-y-4">
-            {locations.map((loc) => (
+            {sedes.map((loc) => (
               <div
                 key={loc.city}
                 className="flex items-start justify-between gap-4 rounded-2xl border border-line bg-paper p-5"
@@ -45,6 +45,28 @@ export function ContactSection({
                 </WhatsAppButton>
               </div>
             ))}
+          </div>
+
+          {/* Presencia comercial */}
+          <div className="mt-6">
+            <p className="text-sm font-medium text-ink">
+              También tenemos comerciales en
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {comerciales.map((c) => (
+                <li key={c.city}>
+                  <a
+                    href={c.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-3 py-1.5 text-sm text-ink-soft transition-colors hover:border-brand-coral hover:text-ink"
+                  >
+                    <MapPin size={13} className="text-brand-coral" />
+                    {c.city}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

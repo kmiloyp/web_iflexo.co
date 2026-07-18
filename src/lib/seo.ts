@@ -93,6 +93,34 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
   };
 }
 
+/** JSON-LD Service para páginas de servicio. */
+export function serviceSchema({
+  name,
+  description,
+  path,
+  serviceType,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  serviceType?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    ...(serviceType ? { serviceType } : {}),
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: "CO",
+    url: absoluteUrl(path),
+  };
+}
+
 /** JSON-LD FAQPage a partir de pares pregunta/respuesta. */
 export function faqSchema(faq: { q: string; a: string }[]) {
   return {

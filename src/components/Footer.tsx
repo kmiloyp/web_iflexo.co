@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Container } from "@/components/ui/Container";
-import { footerNav, locations, siteConfig } from "@/lib/config";
+import { footerNav, sedes, comerciales, siteConfig } from "@/lib/config";
 
 export function Footer() {
   const year = 2026; // sello estático; evita hydration mismatch
@@ -30,7 +30,7 @@ export function Footer() {
               Sedes
             </h3>
             <ul className="mt-4 space-y-3 text-sm">
-              {locations.map((loc) => (
+              {sedes.map((loc) => (
                 <li key={loc.city}>
                   <a
                     href={loc.whatsapp}
@@ -45,6 +45,27 @@ export function Footer() {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Presencia comercial (sin planta física) */}
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:gap-4">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white/70">
+            También nos encuentras en
+          </span>
+          <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            {comerciales.map((c) => (
+              <li key={c.city}>
+                <a
+                  href={c.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/15 px-3 py-1 text-white/80 transition-colors hover:border-white/40 hover:text-white"
+                >
+                  {c.city}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">

@@ -18,16 +18,24 @@ export const siteConfig = {
 } as const;
 
 /** WhatsApp — configurable por env, con default de la marca. */
+const WA_BOGOTA = process.env.NEXT_PUBLIC_WA_BOGOTA ?? "https://wa.link/onzscn";
+const WA_MEDELLIN =
+  process.env.NEXT_PUBLIC_WA_MEDELLIN ?? "https://walink.co/2e1dd0";
+
 export const whatsapp = {
-  bogota: process.env.NEXT_PUBLIC_WA_BOGOTA ?? "https://wa.link/onzscn",
-  medellin: process.env.NEXT_PUBLIC_WA_MEDELLIN ?? "https://walink.co/2e1dd0",
+  bogota: WA_BOGOTA,
+  medellin: WA_MEDELLIN,
+  // Comerciales: apuntan al WhatsApp principal hasta tener sus links reales.
+  barranquilla: process.env.NEXT_PUBLIC_WA_BARRANQUILLA ?? WA_BOGOTA,
+  centroamerica: process.env.NEXT_PUBLIC_WA_CENTROAMERICA ?? WA_BOGOTA,
+  norteamerica: process.env.NEXT_PUBLIC_WA_NORTEAMERICA ?? WA_BOGOTA,
+  venezuela: process.env.NEXT_PUBLIC_WA_VENEZUELA ?? WA_BOGOTA,
   /** CTA por defecto (Bogotá, sede principal). */
-  get default() {
-    return this.bogota;
-  },
+  default: WA_BOGOTA,
 } as const;
 
-export const locations = [
+/** Sedes FÍSICAS (planta/oficina). */
+export const sedes = [
   {
     city: "Bogotá",
     label: "Sede principal",
@@ -41,6 +49,17 @@ export const locations = [
     region: "Antioquia, Colombia",
   },
 ] as const;
+
+/** Presencia COMERCIAL (comerciales de zona, sin planta física). */
+export const comerciales = [
+  { city: "Barranquilla", region: "Costa Caribe", whatsapp: whatsapp.barranquilla },
+  { city: "Centroamérica", region: "Comercial regional", whatsapp: whatsapp.centroamerica },
+  { city: "Norteamérica", region: "Comercial regional", whatsapp: whatsapp.norteamerica },
+  { city: "Venezuela", region: "Comercial regional", whatsapp: whatsapp.venezuela },
+] as const;
+
+/** Alias por compatibilidad: los CTA de sedes usan las físicas. */
+export const locations = sedes;
 
 /** Categorías del blog. slug = prefijo de URL (se conserva 1:1 del sitio actual). */
 export const categories = [
