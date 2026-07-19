@@ -15,7 +15,7 @@ import { testimonials } from "@/lib/landings";
 export const metadata = buildMetadata({
   title: "Sobre iFlexo | Preprensa flexográfica en Bogotá y Medellín",
   description:
-    "Somos el proveedor de preprensa que llevó Kodak Flexcel NX a Colombia. Proceso auditado por Miraclon, exposición Shine LED y equipo técnico en Bogotá y Medellín.",
+    "Somos el proveedor de preprensa que llevó Kodak Flexcel NX a Colombia. Proceso auditado por Miraclon y exposición Shine LED. Sedes en Bogotá y Medellín.",
   path: "/nosotros/",
 });
 

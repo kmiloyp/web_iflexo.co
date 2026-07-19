@@ -3,14 +3,15 @@
 Estado a 2026-07-18. El sitio vive en la preview de Vercel (`web-iflexo-co.vercel.app`).
 Salir en vivo = apuntar `iflexo.co` a Vercel y jubilar el WordPress.
 
-## ✅ QA técnico ya verificado
+## ✅ QA técnico verificado (final, 2026-07-19)
 - **Lint:** 0 errores. **Build:** compila limpio.
-- **Rutas:** 36 probadas (9 páginas + 3 legales + 4 categorías + 17 artículos + robots/sitemap/admin) → **todas 200**.
-- **Enlaces internos** de la Home: 0 rotos.
+- **Crawl completo:** 33 páginas + todos sus enlaces internos → **0 enlaces rotos**, **0 problemas de SEO/estado**.
 - **URLs del blog** (17) preservadas 1:1 con trailing slash.
-- **SEO on-page:** 1 solo `<h1>` por página, canonical correcto, meta description dentro de límite, JSON-LD (Organization / Service / Article / BreadcrumbList / FAQPage), `sitemap.xml` con 33 URLs, `robots.txt` correcto (bloquea `/admin` y `/api`).
+- **SEO on-page:** **1 solo `<h1>` por página**, canonical correcto, meta descriptions dentro de límite, **títulos únicos** (se corrigieron 3 artículos con título duplicado), JSON-LD (Organization / Service / Article / BreadcrumbList / FAQPage), `sitemap.xml` con 33 URLs, `robots.txt` correcto (bloquea `/admin` y `/api`).
 - **Imágenes** de artículos servidas desde Supabase Storage (independiente del WordPress).
-- **Seguridad:** cabeceras (CSP, HSTS, etc.) activas en producción, sin violaciones.
+- **Seguridad:** cabeceras (CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy) activas en producción, sin violaciones.
+- **Consola:** sin errores en las páginas verificadas.
+- **WhatsApp:** enlaces válidos (2 sedes + 4 comerciales).
 
 ## 🔴 Bloqueantes antes de salir en vivo
 1. **Revisión legal** de `/privacy-policy/`, `/politica-de-cookies/`, `/aviso-legal/` por el abogado.
