@@ -153,9 +153,9 @@ export default function Home() {
             beneficio: "Lo que diseñaste es exactamente lo que queda en la plancha: sólidos densos y tipografía fina que no se engorda.",
           },
           {
-            nombre: "Patronado de superficie",
-            tecnica: "Micropatrón en el borde del elemento que retiene la tinta y deja escapar el aire.",
-            beneficio: "Funciona como un anilox sobre la plancha: más densidad con la misma tinta.",
+            nombre: "Advantage Patterns y PureFlexo",
+            tecnica: "Micropatrones de superficie de Miraclon (AED + patronado multiforma) que controlan la transferencia y la propagación de la tinta.",
+            beneficio: "Más densidad con la misma tinta, menos ganancia de punto y menos paradas de limpieza.",
           },
           {
             nombre: "Exposición Shine LED",

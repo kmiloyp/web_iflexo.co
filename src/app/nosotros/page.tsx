@@ -1,5 +1,6 @@
 import { Hero } from "@/components/landing/Hero";
 import { Testimonials } from "@/components/landing/Testimonials";
+import { VideoTestimonial } from "@/components/landing/VideoTestimonial";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { ContactSection } from "@/components/ContactSection";
 import { CifrasDestacadas } from "@/components/sections/CifrasDestacadas";
@@ -82,6 +83,12 @@ export default function NosotrosPage() {
           </Reveal>
         </div>
       </Section>
+
+      <VideoTestimonial
+        id="V4Xdm1nhRIw"
+        eyebrow="Conócenos"
+        title="Esto es iFlexo Visión Gráfica"
+      />
 
       <TecnologiaCards
         eyebrow="Equipamiento y proceso"

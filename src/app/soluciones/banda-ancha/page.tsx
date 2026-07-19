@@ -7,6 +7,7 @@ import { FinalCTA } from "@/components/landing/FinalCTA";
 import { ProblemaAgitacion } from "@/components/sections/ProblemaAgitacion";
 import { CifrasDestacadas } from "@/components/sections/CifrasDestacadas";
 import { TecnologiaCards } from "@/components/sections/TecnologiaCards";
+import { ComparadorTinta } from "@/components/sections/ComparadorTinta";
 import { CasoExito } from "@/components/sections/CasoExito";
 import { ComparativaTabla } from "@/components/sections/ComparativaTabla";
 import { Objeciones } from "@/components/sections/Objeciones";
@@ -117,6 +118,8 @@ export default function BandaAnchaPage() {
         ]}
       />
 
+      <ComparadorTinta />
+
       <CasoExito
         stat="30%"
         statLabel="menos tinta blanca por pedido"
@@ -140,6 +143,15 @@ export default function BandaAnchaPage() {
           { label: "Reprocesos", cells: ["Frecuentes", "Menos"] },
           { label: "Costo por millar impreso", cells: ["Mayor", "Menor"] },
         ]}
+      />
+
+      <CasoExito
+        eyebrow="Caso real · Antioquia"
+        stat="4"
+        statLabel="colores donde le decían que no se podía"
+        title="Policromía en una máquina de stacks, por primera vez"
+        body="Un impresor de banda ancha en Antioquia, con una máquina de stacks de hace años, nunca había impreso en policromía: otras empresas de preprensa le decían que no se podía. Con nuestro apoyo logró imprimir fotos e imágenes a cuatro colores."
+        closing="Abrió un mercado que antes tenía cerrado. **La preprensa correcta cambia lo que tu máquina puede hacer.**"
       />
 
       <VideoTestimonial />

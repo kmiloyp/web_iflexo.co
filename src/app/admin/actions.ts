@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { slugify } from "@/lib/utils";
 import { sanitizeArticleHtml } from "@/lib/sanitize";
@@ -67,9 +68,12 @@ export async function saveArticle(payload: ArticlePayload): Promise<SaveResult> 
     return { ok: true, id: payload.id };
   }
 
+  // Nuevo: upsert por (category, slug) para evitar choques de la clave única
+  // si el autoguardado se dispara dos veces antes de tener id. status usa el
+  // default 'draft' en el insert y no se toca si ya existía.
   const { data, error: e } = await supabase
     .from("articles")
-    .insert({ ...row, status: "draft" })
+    .upsert(row, { onConflict: "category,slug" })
     .select("id")
     .single();
   if (e) return { ok: false, error: e.message };
@@ -99,6 +103,49 @@ export async function publishArticle(id: string): Promise<SaveResult> {
   }
   revalidatePath("/admin/articulos");
   return { ok: true, id };
+}
+
+/** Sube una imagen al bucket `articulos` y devuelve su URL pública. */
+export async function uploadArticleImage(
+  formData: FormData
+): Promise<{ ok: boolean; url?: string; error?: string }> {
+  const { error } = await requireAuth();
+  if (error) return { ok: false, error };
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return { ok: false, error: "No se recibió ninguna imagen." };
+  }
+  if (file.size > 5_000_000) {
+    return { ok: false, error: "La imagen supera los 5 MB." };
+  }
+  if (!file.type.startsWith("image/")) {
+    return { ok: false, error: "El archivo no es una imagen." };
+  }
+
+  try {
+    const admin = createAdminClient();
+    const ext = (file.name.split(".").pop() || "jpg")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")
+      .slice(0, 5);
+    const rand = Math.random().toString(36).slice(2, 8);
+    const path = `subidas/${Date.now()}-${rand}.${ext}`;
+    const bytes = new Uint8Array(await file.arrayBuffer());
+
+    const { error: upErr } = await admin.storage
+      .from("articulos")
+      .upload(path, bytes, {
+        contentType: file.type || "image/jpeg",
+        upsert: false,
+      });
+    if (upErr) return { ok: false, error: upErr.message };
+
+    const { data } = admin.storage.from("articulos").getPublicUrl(path);
+    return { ok: true, url: data.publicUrl };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "Error al subir." };
+  }
 }
 
 /** Vuelve un artículo a borrador. */

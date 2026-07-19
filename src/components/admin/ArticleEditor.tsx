@@ -2,11 +2,20 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Check, Loader2, Plus, Trash2, ExternalLink } from "lucide-react";
+import {
+  Check,
+  Loader2,
+  Plus,
+  Trash2,
+  ExternalLink,
+  UploadCloud,
+  Save,
+} from "lucide-react";
 import {
   saveArticle,
   publishArticle,
   unpublishArticle,
+  uploadArticleImage,
   type ArticlePayload,
 } from "@/app/admin/actions";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
@@ -25,9 +34,12 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [message, setMessage] = useState<string | null>(null);
   const [publishing, setPublishing] = useState(false);
+  const [savingDraft, setSavingDraft] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [editMode, setEditMode] = useState<"visual" | "html">("visual");
   const firstRender = useRef(true);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const coverFileRef = useRef<HTMLInputElement>(null);
 
   const set = <K extends keyof EditorArticle>(key: K, value: EditorArticle[K]) =>
     setArticle((a) => ({ ...a, [key]: value }));
@@ -87,6 +99,31 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
     if (!article.id) return;
     const res = await unpublishArticle(article.id);
     if (res.ok) setArticle((a) => ({ ...a, status: "draft" }));
+  };
+
+  const onSaveDraft = async () => {
+    if (!article.title?.trim()) {
+      setMessage("Ponle un título antes de guardar.");
+      return;
+    }
+    setSavingDraft(true);
+    await persist(article);
+    setSavingDraft(false);
+  };
+
+  const onUploadImage = async (file: File) => {
+    setUploading(true);
+    setMessage(null);
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await uploadArticleImage(fd);
+    setUploading(false);
+    if (res.ok && res.url) {
+      set("cover_image_url", res.url);
+      if (!article.cover_image_alt) set("cover_image_alt", article.title || "");
+    } else {
+      setMessage(res.error ?? "No se pudo subir la imagen.");
+    }
   };
 
   const publicPath = `/${article.category}/${article.slug}/`;
@@ -173,6 +210,18 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
                 "Publicar"
               )}
             </button>
+            <button
+              onClick={onSaveDraft}
+              disabled={savingDraft}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-line text-sm font-medium hover:bg-sand disabled:opacity-50"
+            >
+              {savingDraft ? (
+                <Loader2 size={15} className="animate-spin" />
+              ) : (
+                <Save size={15} />
+              )}
+              Guardar borrador
+            </button>
             {article.status === "published" && (
               <>
                 <Link
@@ -192,7 +241,14 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
             )}
           </div>
           {message && (
-            <p className="mt-3 text-xs text-ink-soft">{message}</p>
+            <p
+              className={cn(
+                "mt-3 text-xs",
+                saveState === "error" ? "text-brand-magenta" : "text-ink-soft"
+              )}
+            >
+              {message}
+            </p>
           )}
         </div>
 
@@ -281,12 +337,47 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
               />
             </FieldBlock>
 
-            <FieldBlock label="Imagen destacada (URL)">
-              <input
-                value={article.cover_image_url ?? ""}
-                onChange={(e) => set("cover_image_url", e.target.value)}
-                className="w-full rounded-xl border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand-coral"
-              />
+            <FieldBlock label="Imagen destacada">
+              <div className="grid gap-2">
+                {article.cover_image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={article.cover_image_url}
+                    alt="Vista previa de la portada"
+                    className="h-28 w-full rounded-lg border border-line object-cover"
+                  />
+                )}
+                <input
+                  value={article.cover_image_url ?? ""}
+                  onChange={(e) => set("cover_image_url", e.target.value)}
+                  placeholder="URL de la imagen o súbela abajo"
+                  className="w-full rounded-xl border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand-coral"
+                />
+                <button
+                  type="button"
+                  onClick={() => coverFileRef.current?.click()}
+                  disabled={uploading}
+                  className="inline-flex h-9 items-center justify-center gap-2 rounded-full border border-line text-sm font-medium hover:bg-sand disabled:opacity-50"
+                >
+                  {uploading ? (
+                    <Loader2 size={14} className="animate-spin" />
+                  ) : (
+                    <UploadCloud size={14} />
+                  )}
+                  Subir imagen
+                </button>
+                <input
+                  ref={coverFileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) onUploadImage(f);
+                    e.target.value = "";
+                  }}
+                />
+              </div>
             </FieldBlock>
 
             <FieldBlock label="Alt de la imagen">

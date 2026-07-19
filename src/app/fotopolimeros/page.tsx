@@ -100,7 +100,7 @@ export default function FotopolimerosPage() {
 
       <TecnologiaCards
         eyebrow="Lo que hacemos distinto"
-        title="Las cinco cosas que hacemos distinto"
+        title="Tecnología de Miraclon, procesada con criterio"
         intro="Cada tecnología va con lo que ganas en máquina. Nunca una sin la otra."
         items={[
           {
@@ -114,9 +114,14 @@ export default function FotopolimerosPage() {
             beneficio: "Sólidos densos, altas luces que no desaparecen y tipografía fina que no se engorda.",
           },
           {
-            nombre: "Patronado de superficie",
-            tecnica: "Micropatrón en el borde del elemento que retiene la tinta y libera el aire.",
-            beneficio: "Actúa como un anilox sobre la plancha: más densidad con la misma tinta.",
+            nombre: "Advantage Patterns (DIGICAP NX)",
+            tecnica: "Micropatrón con Advanced Edge Definition (AED): retiene la tinta en el borde del punto y deja escapar el aire.",
+            beneficio: "Actúa como un anilox sobre la plancha: más densidad y mejor transferencia con la misma tinta.",
+          },
+          {
+            nombre: "Tramas PureFlexo Printing",
+            tecnica: "Patronado multiforma de Miraclon que frena la propagación no deseada de la tinta.",
+            beneficio: "Menor ganancia de punto, menos acumulación de tinta en los bordes y una ventana de operación más amplia en la prensa.",
           },
           {
             nombre: "Exposición Shine LED",
@@ -134,6 +139,15 @@ export default function FotopolimerosPage() {
       />
 
       <ComparadorPuntos />
+
+      <CasoExito
+        eyebrow="Una sola plancha"
+        stat="90%"
+        statLabel="de nuestros clientes usa una sola plancha"
+        title="Sólidos densos y tramas al 1%, sin dobles negros"
+        body="El 90% de nuestros clientes ya no necesita dos negros ni dos planchas para combinar áreas sólidas y tramadas. Con una sola plancha logran sólidos muy densos y tramas tan finas como el 1%."
+        closing="Menos planchas, menos montaje y menos costo — **con mejor resultado**."
+      />
 
       <ComparativaTabla
         title="Plancha convencional vs Flexcel NX vs Flexcel NX por iFlexo"

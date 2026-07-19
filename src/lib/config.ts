@@ -25,11 +25,15 @@ const WA_MEDELLIN =
 export const whatsapp = {
   bogota: WA_BOGOTA,
   medellin: WA_MEDELLIN,
-  // Comerciales: apuntan al WhatsApp principal hasta tener sus links reales.
-  barranquilla: process.env.NEXT_PUBLIC_WA_BARRANQUILLA ?? WA_BOGOTA,
-  centroamerica: process.env.NEXT_PUBLIC_WA_CENTROAMERICA ?? WA_BOGOTA,
-  norteamerica: process.env.NEXT_PUBLIC_WA_NORTEAMERICA ?? WA_BOGOTA,
-  venezuela: process.env.NEXT_PUBLIC_WA_VENEZUELA ?? WA_BOGOTA,
+  // Comerciales de zona (WhatsApp directo; overridable por env).
+  barranquilla:
+    process.env.NEXT_PUBLIC_WA_BARRANQUILLA ?? "https://wa.me/573005424786",
+  centroamerica:
+    process.env.NEXT_PUBLIC_WA_CENTROAMERICA ?? "https://wa.me/50766825459",
+  norteamerica:
+    process.env.NEXT_PUBLIC_WA_NORTEAMERICA ?? "https://wa.me/13055185306",
+  venezuela:
+    process.env.NEXT_PUBLIC_WA_VENEZUELA ?? "https://wa.me/573164371823",
   /** CTA por defecto (Bogotá, sede principal). */
   default: WA_BOGOTA,
 } as const;

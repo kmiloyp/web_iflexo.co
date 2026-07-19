@@ -33,6 +33,10 @@ const faq = [
     a: "Que la prueba reproduce el color del impreso final con hasta un 95% de fidelidad, medido con instrumentos y contra el impreso real —no contra un ideal—, bajo condiciones controladas de tu proceso (anilox, tintas y sustrato).",
   },
   {
+    q: "¿Con qué equipos hacen la prueba?",
+    a: "Con un flujo de gestión de color profesional GMG ColorProof y una impresora Epson especializada, con un espectrofotómetro que mide y garantiza el color impreso. Por eso la prueba es una referencia objetiva y repetible, no una apreciación visual.",
+  },
+  {
     q: "¿Sirve como prueba de contrato?",
     a: "Sí. Funciona como referencia objetiva de aprobación: el color aprobado queda documentado y medible, lo que reduce reclamos y discusiones con la marca.",
   },
@@ -100,9 +104,9 @@ export default function PruebaDeColorPage() {
         title="Cómo logramos el 95%"
         steps={[
           { titulo: "Perfilamos tu proceso real", desc: "Anilox, tintas y sustrato: tus condiciones, no un genérico." },
-          { titulo: "Curvas específicas", desc: "Calibradas a tu máquina y tu material." },
-          { titulo: "Prueba en equipo calibrado", desc: "Evaluada bajo cabina de luz D50." },
-          { titulo: "Verificación medible", desc: "Contra el impreso real, con instrumentos, no a ojo." },
+          { titulo: "Flujo de color con GMG ColorProof", desc: "Gestión de color profesional calibrada a tu perfil." },
+          { titulo: "Salida en Epson especializada", desc: "Impresión controlada, evaluada bajo cabina de luz D50." },
+          { titulo: "Verificación con espectrofotómetro", desc: "Un espectrofotómetro mide y garantiza el color, contra el impreso real." },
         ]}
       />
 
