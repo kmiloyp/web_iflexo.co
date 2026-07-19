@@ -20,8 +20,12 @@ import {
   type ArticlePayload,
 } from "@/app/admin/actions";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import { uploadArticleImage } from "@/lib/upload-image";
 import { categories } from "@/lib/config";
 import { cn } from "@/lib/utils";
+
+/** Límite de bodySizeLimit de las Server Actions (4 MB), con margen. */
+const MAX_PAYLOAD_BYTES = 3_500_000;
 
 export type EditorArticle = ArticlePayload & {
   id?: string;
@@ -54,15 +58,32 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
 
   const persist = useCallback(async (current: EditorArticle) => {
     if (!current.title?.trim()) return;
-    setSaveState("saving");
-    const res = await saveArticle(current);
-    if (res.ok) {
-      setSaveState("saved");
-      if (res.id && !current.id) setArticle((a) => ({ ...a, id: res.id }));
-      setMessage(null);
-    } else {
+
+    // Un payload por encima del bodySizeLimit hace que la Server Action lance
+    // antes de llegar al servidor; sin este aviso el spinner giraba sin fin.
+    const oversized = payloadTooBig(current);
+    if (oversized) {
       setSaveState("error");
-      setMessage(res.error ?? "No se pudo guardar.");
+      setMessage(oversized);
+      return;
+    }
+
+    setSaveState("saving");
+    try {
+      const res = await saveArticle(current);
+      if (res.ok) {
+        setSaveState("saved");
+        if (res.id && !current.id) setArticle((a) => ({ ...a, id: res.id }));
+        setMessage(null);
+      } else {
+        setSaveState("error");
+        setMessage(res.error ?? "No se pudo guardar.");
+      }
+    } catch (e) {
+      setSaveState("error");
+      setMessage(
+        e instanceof Error ? `No se pudo guardar: ${e.message}` : "No se pudo guardar."
+      );
     }
   }, []);
 
@@ -81,38 +102,77 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
   }, [JSON.stringify(article)]);
 
   const onPublish = async () => {
-    let id = article.id;
-    if (!id) {
-      const res = await saveArticle(article);
-      if (!res.ok || !res.id) {
-        setMessage(res.error ?? "Guarda el artículo antes de publicar.");
-        return;
-      }
-      id = res.id;
-      setArticle((a) => ({ ...a, id }));
+    if (!article.title?.trim()) {
+      setSaveState("error");
+      setMessage("Ponle un título antes de publicar.");
+      return;
+    }
+    const oversized = payloadTooBig(article);
+    if (oversized) {
+      setSaveState("error");
+      setMessage(oversized);
+      return;
     }
     if (!confirm("¿Publicar este artículo? Será visible al público.")) return;
+
     setPublishing(true);
-    const res = await publishArticle(id);
-    setPublishing(false);
-    if (res.ok) {
-      setArticle((a) => ({ ...a, status: "published" }));
-      setMessage("Artículo publicado.");
-    } else {
-      setMessage(res.error ?? "No se pudo publicar.");
+    setMessage(null);
+    try {
+      let id = article.id;
+      if (!id) {
+        const saved = await saveArticle(article);
+        if (!saved.ok || !saved.id) {
+          setSaveState("error");
+          setMessage(saved.error ?? "No se pudo guardar antes de publicar.");
+          return;
+        }
+        id = saved.id;
+        setArticle((a) => ({ ...a, id }));
+      }
+      const res = await publishArticle(id);
+      if (res.ok) {
+        setArticle((a) => ({ ...a, status: "published" }));
+        setSaveState("saved");
+        setMessage("Artículo publicado ✓");
+      } else {
+        setSaveState("error");
+        setMessage(res.error ?? "No se pudo publicar.");
+      }
+    } catch (e) {
+      setSaveState("error");
+      setMessage(
+        e instanceof Error ? `No se pudo publicar: ${e.message}` : "No se pudo publicar."
+      );
+    } finally {
+      setPublishing(false);
     }
   };
 
   const onUnpublish = async () => {
     if (!article.id) return;
-    const res = await unpublishArticle(article.id);
-    if (res.ok) setArticle((a) => ({ ...a, status: "draft" }));
+    try {
+      const res = await unpublishArticle(article.id);
+      if (res.ok) setArticle((a) => ({ ...a, status: "draft" }));
+      else {
+        setSaveState("error");
+        setMessage(res.error ?? "No se pudo volver a borrador.");
+      }
+    } catch (e) {
+      setSaveState("error");
+      setMessage(e instanceof Error ? `Error: ${e.message}` : "Error al cambiar el estado.");
+    }
   };
 
   const onSaveDraft = async () => {
     if (!article.title?.trim()) {
       setSaveState("error");
       setMessage("Ponle un título antes de guardar.");
+      return;
+    }
+    const oversized = payloadTooBig(article);
+    if (oversized) {
+      setSaveState("error");
+      setMessage(oversized);
       return;
     }
     setSavingDraft(true);
@@ -137,22 +197,17 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
 
   const onUploadImage = async (file: File) => {
     setUploading(true);
-    setMessage(null);
+    setMessage("Optimizando imagen…");
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      const res = await fetch("/api/upload-image", { method: "POST", body: fd });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.url) {
-        set("cover_image_url", data.url);
+      const result = await uploadArticleImage(file);
+      if (result.ok) {
+        set("cover_image_url", result.url);
         if (!article.cover_image_alt) set("cover_image_alt", article.title || "");
+        setMessage(result.note);
       } else {
-        setMessage(data.error ?? `No se pudo subir la imagen (${res.status}).`);
+        setSaveState("error");
+        setMessage(result.error);
       }
-    } catch (e) {
-      setMessage(
-        e instanceof Error ? `Error de red: ${e.message}` : "Error al subir la imagen."
-      );
     } finally {
       setUploading(false);
     }
@@ -200,9 +255,14 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
           </div>
           {editMode === "visual" ? (
             <RichTextEditor
-              key={`visual-${article.id ?? "new"}`}
+              // Ojo: la key va contra `initial.id`, no `article.id`. Con este
+              // último, el primer autoguardado de un artículo nuevo asignaba el
+              // id y remontaba el editor a media escritura (se perdía el cursor
+              // y el historial de deshacer).
+              key={`visual-${initial.id ?? "new"}`}
               initialValue={article.content_html}
               onChange={(html) => set("content_html", html)}
+              onNotice={(m) => setMessage(m)}
             />
           ) : (
             <textarea
@@ -461,6 +521,22 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
       </aside>
     </div>
   );
+}
+
+/**
+ * Devuelve un mensaje si el artículo no cabe en una Server Action.
+ * Casi siempre es una imagen incrustada en base64 dentro del contenido.
+ */
+function payloadTooBig(article: EditorArticle): string | null {
+  const bytes = new TextEncoder().encode(JSON.stringify(article)).length;
+  if (bytes <= MAX_PAYLOAD_BYTES) return null;
+  const inlineImages = (article.content_html ?? "").match(/src=["']data:image/gi);
+  if (inlineImages) {
+    return `El contenido lleva ${inlineImages.length} imagen(es) pegadas dentro del texto y por eso no se puede guardar. Bórralas y vuelve a insertarlas con el botón de imagen del editor.`;
+  }
+  return `El artículo pesa demasiado (${Math.round(
+    bytes / 1024
+  )} KB) para guardarse de una vez. Acorta el contenido o quita imágenes incrustadas.`;
 }
 
 function FieldBlock({

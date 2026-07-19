@@ -1,6 +1,7 @@
 "use client";
 
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
+import type { EditorView } from "@tiptap/pm/view";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -18,6 +19,7 @@ import {
   Redo2,
   Unlink,
 } from "lucide-react";
+import { uploadArticleImage } from "@/lib/upload-image";
 import { cn } from "@/lib/utils";
 
 /**
@@ -29,9 +31,12 @@ import { cn } from "@/lib/utils";
 export function RichTextEditor({
   initialValue,
   onChange,
+  onNotice,
 }: {
   initialValue: string;
   onChange: (html: string) => void;
+  /** Avisos para la barra lateral (imagen optimizada, error de subida…). */
+  onNotice?: (message: string) => void;
 }) {
   const editor = useEditor({
     immediatelyRender: false, // requerido en Next App Router (evita hydration mismatch)
@@ -50,6 +55,28 @@ export function RichTextEditor({
     ],
     content: initialValue || "",
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
+    editorProps: {
+      // Word / Google Docs pegan <img src="data:image/png;base64,…">. Incrustado
+      // en content_html revienta el límite del Server Action al guardar, así que
+      // se descarta aquí: las imágenes entran por subida, nunca inline.
+      transformPastedHTML(html) {
+        if (!html.includes("data:image")) return html;
+        onNotice?.(
+          "Se quitó una imagen pegada dentro del texto. Súbela con el botón de imagen para que quede alojada."
+        );
+        return html.replace(/<img[^>]+src=["']data:image[^>]*>/gi, "");
+      },
+      handlePaste(view, event) {
+        const files = Array.from(event.clipboardData?.files ?? []);
+        return handleImageFiles(view, files, onNotice);
+      },
+      handleDrop(view, event) {
+        const files = Array.from(
+          (event as DragEvent).dataTransfer?.files ?? []
+        );
+        return handleImageFiles(view, files, onNotice);
+      },
+    },
   });
 
   if (!editor) {
@@ -67,6 +94,36 @@ export function RichTextEditor({
       />
     </div>
   );
+}
+
+/**
+ * Sube las imágenes pegadas/arrastradas y las inserta ya alojadas.
+ * Devuelve true si se hizo cargo del evento (para que ProseMirror no
+ * las incruste como base64).
+ */
+function handleImageFiles(
+  view: EditorView,
+  files: File[],
+  onNotice?: (message: string) => void
+): boolean {
+  const images = files.filter((f) => f.type.startsWith("image/"));
+  if (images.length === 0) return false;
+
+  void (async () => {
+    for (const file of images) {
+      onNotice?.("Subiendo imagen…");
+      const result = await uploadArticleImage(file);
+      if (!result.ok) {
+        onNotice?.(result.error);
+        continue;
+      }
+      onNotice?.(result.note ?? "Imagen insertada.");
+      const node = view.state.schema.nodes.image.create({ src: result.url });
+      view.dispatch(view.state.tr.replaceSelectionWith(node));
+    }
+  })();
+
+  return true;
 }
 
 function Toolbar({ editor }: { editor: Editor }) {
