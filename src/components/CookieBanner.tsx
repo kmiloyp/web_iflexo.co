@@ -16,6 +16,8 @@ export function CookieBanner() {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
+      // Init client-only según consentimiento guardado (patrón intencional).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (!stored) setVisible(true);
       else
         (window as unknown as { __iflexoConsent?: string }).__iflexoConsent =

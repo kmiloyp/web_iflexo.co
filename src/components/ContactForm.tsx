@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import Link from "next/link";
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { submitLead, type ContactState } from "@/app/actions/contact";
 import { cn } from "@/lib/utils";
@@ -177,7 +178,10 @@ export function ContactForm({ origen }: { origen?: string }) {
         <SubmitButton />
         <p className="text-xs text-muted">
           Al enviar aceptas nuestra{" "}
-          <a href="/privacy-policy/" className="underline">política de privacidad</a>.
+          <Link href="/privacy-policy/" className="underline">
+            política de privacidad
+          </Link>
+          .
         </p>
       </div>
     </form>

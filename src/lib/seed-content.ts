@@ -1,7 +1,6 @@
 // AUTO-GENERADO desde el WordPress actual (wp-json) el 2026-07-18.
 // Contenido REAL de los 17 artículos migrados. Editable; al conectar
 // Supabase se reemplaza por la tabla `articles`. No editar a mano salvo necesidad.
-/* eslint-disable */
 export type SeedContent = {
   slug: string;
   category: "flexografia" | "planchas" | "anilox" | "tintas";

@@ -31,6 +31,8 @@ export function Counter({
     const el = ref.current;
     if (!el || !parsed) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Muestra el valor final sin animar (patrón intencional, client-only).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplay(target);
       return;
     }

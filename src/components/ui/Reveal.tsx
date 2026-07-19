@@ -24,6 +24,8 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Init client-only según preferencia del usuario (patrón intencional).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShown(true);
       return;
     }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 
 export default function Error({
@@ -34,12 +35,12 @@ export default function Error({
           >
             Reintentar
           </button>
-          <a
+          <Link
             href="/"
             className="inline-flex h-12 items-center justify-center rounded-full border border-line px-8 font-medium hover:bg-sand"
           >
             Ir al inicio
-          </a>
+          </Link>
         </div>
       </Container>
     </section>
