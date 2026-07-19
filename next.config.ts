@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   // WordPress used trailing slashes (/nosotros/). Keep 1:1 to preserve SEO.
   trailingSlash: true,
   reactStrictMode: true,
+  experimental: {
+    // Sube el límite por defecto (1 MB) de las Server Actions.
+    serverActions: { bodySizeLimit: "4mb" },
+  },
   // Fija la raíz del workspace (hay un lockfile suelto en el home del usuario).
   turbopack: { root: path.resolve() },
   outputFileTracingRoot: path.resolve(),

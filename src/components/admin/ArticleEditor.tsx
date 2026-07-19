@@ -17,7 +17,6 @@ import {
   saveArticle,
   publishArticle,
   unpublishArticle,
-  uploadArticleImage,
   type ArticlePayload,
 } from "@/app/admin/actions";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
@@ -112,26 +111,50 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
 
   const onSaveDraft = async () => {
     if (!article.title?.trim()) {
+      setSaveState("error");
       setMessage("Ponle un título antes de guardar.");
       return;
     }
     setSavingDraft(true);
-    await persist(article);
-    setSavingDraft(false);
+    setMessage(null);
+    try {
+      const res = await saveArticle(article);
+      if (res.ok) {
+        if (res.id && !article.id) setArticle((a) => ({ ...a, id: res.id }));
+        setSaveState("saved");
+        setMessage("Borrador guardado ✓");
+      } else {
+        setSaveState("error");
+        setMessage(res.error ?? "No se pudo guardar.");
+      }
+    } catch (e) {
+      setSaveState("error");
+      setMessage(e instanceof Error ? `Error: ${e.message}` : "No se pudo guardar.");
+    } finally {
+      setSavingDraft(false);
+    }
   };
 
   const onUploadImage = async (file: File) => {
     setUploading(true);
     setMessage(null);
-    const fd = new FormData();
-    fd.append("file", file);
-    const res = await uploadArticleImage(fd);
-    setUploading(false);
-    if (res.ok && res.url) {
-      set("cover_image_url", res.url);
-      if (!article.cover_image_alt) set("cover_image_alt", article.title || "");
-    } else {
-      setMessage(res.error ?? "No se pudo subir la imagen.");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload-image", { method: "POST", body: fd });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) {
+        set("cover_image_url", data.url);
+        if (!article.cover_image_alt) set("cover_image_alt", article.title || "");
+      } else {
+        setMessage(data.error ?? `No se pudo subir la imagen (${res.status}).`);
+      }
+    } catch (e) {
+      setMessage(
+        e instanceof Error ? `Error de red: ${e.message}` : "Error al subir la imagen."
+      );
+    } finally {
+      setUploading(false);
     }
   };
 
