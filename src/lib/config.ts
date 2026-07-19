@@ -96,16 +96,32 @@ export function getCategory(slug: string) {
   return categories.find((c) => c.slug === slug);
 }
 
-/** Navegación principal. */
-export const mainNav = [
+/** Navegación principal (con menús desplegables). */
+export type NavLink = { label: string; href: string };
+export type NavItem = NavLink | { label: string; children: NavLink[] };
+
+export const mainNav: NavItem[] = [
   { label: "Inicio", href: "/" },
-  { label: "Fotopolímeros", href: "/fotopolimeros/" },
-  { label: "Prueba de color", href: "/prueba-de-color/" },
-  { label: "Reducción de color", href: "/reduccion-de-color/" },
+  {
+    label: "Soluciones",
+    children: [
+      { label: "Banda ancha", href: "/soluciones/banda-ancha/" },
+      { label: "Banda angosta", href: "/soluciones/banda-angosta/" },
+    ],
+  },
+  {
+    label: "Servicios",
+    children: [
+      { label: "Fotopolímeros", href: "/fotopolimeros/" },
+      { label: "Prueba de color", href: "/prueba-de-color/" },
+      { label: "Reducción de color", href: "/reduccion-de-color/" },
+      { label: "Servicios gráficos", href: "/servicios-graficos/" },
+    ],
+  },
   { label: "Blog", href: "/flexografia/" },
   { label: "Nosotros", href: "/nosotros/" },
   { label: "Contacto", href: "/contacto/" },
-] as const;
+];
 
 export const footerNav = {
   servicios: [
