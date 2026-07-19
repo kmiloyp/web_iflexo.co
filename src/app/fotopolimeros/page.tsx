@@ -6,7 +6,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { ProblemaAgitacion } from "@/components/sections/ProblemaAgitacion";
 import { TecnologiaCards } from "@/components/sections/TecnologiaCards";
-import { AntesDespues } from "@/components/sections/AntesDespues";
+import { ComparadorPuntos } from "@/components/sections/ComparadorPuntos";
 import { ComparativaTabla } from "@/components/sections/ComparativaTabla";
 import { Segmentos } from "@/components/sections/Segmentos";
 import { ProcesoPasos } from "@/components/sections/ProcesoPasos";
@@ -133,13 +133,7 @@ export default function FotopolimerosPage() {
         ]}
       />
 
-      <AntesDespues
-        title="Punto redondo vs punto plano"
-        before={{ alt: "Punto redondo de plancha convencional, vista macro con lupa" }}
-        after={{ alt: "Punto plano de plancha Kodak Flexcel NX procesada por iFlexo, vista macro" }}
-        labelAntes="Otro proceso"
-        labelDespues="iFlexo"
-      />
+      <ComparadorPuntos />
 
       <ComparativaTabla
         title="Plancha convencional vs Flexcel NX vs Flexcel NX por iFlexo"
