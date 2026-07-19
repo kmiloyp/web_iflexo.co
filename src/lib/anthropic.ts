@@ -18,6 +18,7 @@ export type GeneratedArticle = {
   secondary_keywords: string[];
   excerpt: string;
   cover_image_alt: string;
+  image_prompt: string;
   content_html: string;
   faq: { q: string; a: string }[];
   article_schema: Record<string, unknown>;
@@ -58,7 +59,8 @@ REGLAS INQUEBRANTABLES:
 4. No repitas contenido. El artículo debe ser MÁS LARGO y completo de lo habitual, muy informativo.
 5. content_html usa solo etiquetas semánticas (<h2>, <h3>, <p>, <ul>, <li>, <blockquote>). Sin <h1> (el título es el H1). Sin estilos inline.
 6. meta_title ≤ 60 caracteres. meta_description ≤ 155 caracteres. slug en kebab-case SIN tildes.
-7. Devuelves el resultado EXCLUSIVAMENTE a través de la herramienta 'entregar_articulo'. No escribas texto fuera de la herramienta.`;
+7. image_prompt: entrega un prompt profesional (en inglés) para generar la imagen de portada del artículo, siguiendo al pie de la letra los requisitos del campo (fotografía industrial realista del tema, formato horizontal 16:9 ~1600x900, sin texto/logos/marcas/personas identificables).
+8. Devuelves el resultado EXCLUSIVAMENTE a través de la herramienta 'entregar_articulo'. No escribas texto fuera de la herramienta.`;
 
 const TOOL = {
   name: "entregar_articulo",
@@ -79,6 +81,11 @@ const TOOL = {
       secondary_keywords: { type: "array", items: { type: "string" } },
       excerpt: { type: "string", description: "resumen de 1-2 frases" },
       cover_image_alt: { type: "string" },
+      image_prompt: {
+        type: "string",
+        description:
+          "Prompt PROFESIONAL en INGLÉS para generar la imagen de portada con una IA de imágenes (ChatGPT/Gemini). Requisitos OBLIGATORIOS: (1) describe una escena FOTOGRÁFICA realista y específica del tema (flexografía, preprensa, planchas fotopolímeros, rodillos anilox, tintas, impresión de empaques/etiquetas) con iluminación editorial y encuadre de calidad; (2) especifica el FORMATO al final: 'horizontal 16:9 aspect ratio, ~1600x900px, web cover'; (3) incluye 'no text, no logos, no watermark, no identifiable people, no brand names'; (4) estilo: 'realistic industrial photography, high detail, sharp focus'. Un solo párrafo.",
+      },
       content_html: {
         type: "string",
         description: "HTML del cuerpo, sin <h1>",
@@ -102,6 +109,7 @@ const TOOL = {
       "secondary_keywords",
       "excerpt",
       "cover_image_alt",
+      "image_prompt",
       "content_html",
       "faq",
     ],
@@ -185,6 +193,7 @@ function stubArticle(input: GenerationInput): GeneratedArticle {
     secondary_keywords: [input.keyword + " flexografía", "preprensa", "impresión"],
     excerpt: `Todo lo que necesitas saber sobre ${input.keyword}.`,
     cover_image_alt: `Ilustración sobre ${input.keyword}`,
+    image_prompt: `Realistic industrial photography of ${input.keyword} in a flexographic prepress context, editorial lighting, sharp focus, high detail — horizontal 16:9 aspect ratio, ~1600x900px, web cover; no text, no logos, no watermark, no identifiable people, no brand names.`,
     content_html: `<p><strong>[BORRADOR DE PRUEBA — sin ANTHROPIC_API_KEY]</strong> Este contenido es un marcador de posición generado por el stub. Al configurar la API de Anthropic, aquí llegará el artículo real basado en tu keyword, las 3 URLs y tu experiencia.</p><h2>Introducción</h2><p>Escribe aquí el desarrollo de "${input.keyword}".</p><h2>Puntos clave</h2><ul><li>Punto 1</li><li>Punto 2</li></ul>`,
     faq: [
       {

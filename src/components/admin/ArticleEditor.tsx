@@ -10,6 +10,8 @@ import {
   ExternalLink,
   UploadCloud,
   Save,
+  Copy,
+  Sparkles,
 } from "lucide-react";
 import {
   saveArticle,
@@ -25,6 +27,8 @@ import { cn } from "@/lib/utils";
 export type EditorArticle = ArticlePayload & {
   id?: string;
   status?: "draft" | "published";
+  /** Prompt sugerido para generar la imagen de portada con IA (no se guarda). */
+  image_prompt?: string;
 };
 
 type SaveState = "idle" | "saving" | "saved" | "error";
@@ -36,6 +40,11 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
   const [publishing, setPublishing] = useState(false);
   const [savingDraft, setSavingDraft] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [imagePrompt, setImagePrompt] = useState(
+    initial.image_prompt ??
+      `Realistic industrial photography related to "${initial.title}", flexographic prepress context, editorial lighting, sharp focus, high detail — horizontal 16:9 aspect ratio, ~1600x900px, web cover; no text, no logos, no watermark, no identifiable people, no brand names.`
+  );
   const [editMode, setEditMode] = useState<"visual" | "html">("visual");
   const firstRender = useRef(true);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -379,6 +388,43 @@ export function ArticleEditor({ initial }: { initial: EditorArticle }) {
                 />
               </div>
             </FieldBlock>
+
+            <div className="rounded-xl border border-line bg-sand p-3">
+              <div className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-ink">
+                <Sparkles size={14} className="text-brand-coral" />
+                Prompt de imagen (IA)
+              </div>
+              <textarea
+                value={imagePrompt}
+                onChange={(e) => setImagePrompt(e.target.value)}
+                rows={5}
+                className="w-full rounded-lg border border-line bg-white px-3 py-2 text-xs leading-relaxed outline-none focus:border-brand-coral"
+              />
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(imagePrompt);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                  } catch {
+                    /* clipboard no disponible */
+                  }
+                }}
+                className="mt-2 inline-flex h-9 w-full items-center justify-center gap-2 rounded-full border border-line bg-white text-sm font-medium hover:bg-mist"
+              >
+                {copied ? (
+                  <Check size={14} className="text-spectrum-green" />
+                ) : (
+                  <Copy size={14} />
+                )}
+                {copied ? "Copiado" : "Copiar prompt"}
+              </button>
+              <p className="mt-2 text-xs text-muted">
+                Pégalo en ChatGPT o Gemini, genera la imagen y súbela arriba.
+                Ya incluye el formato 16:9 y el estilo profesional.
+              </p>
+            </div>
 
             <FieldBlock label="Alt de la imagen">
               <input
