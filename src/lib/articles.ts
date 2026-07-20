@@ -19,6 +19,8 @@ export type Article = {
   faq: { q: string; a: string }[] | null;
   status: "draft" | "published";
   published_at: string | null;
+  /** Alimenta `dateModified` del JSON-LD (señal de frescura para Google). */
+  updated_at: string | null;
   author: string | null;
 };
 
@@ -43,6 +45,7 @@ export const SEED_ARTICLES: Article[] = SEED_CONTENT.map((c) => ({
   faq: c.faq,
   status: "published" as const,
   published_at: c.published_at,
+  updated_at: c.published_at,
   author: "iFlexo",
 }));
 

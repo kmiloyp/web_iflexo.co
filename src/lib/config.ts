@@ -66,12 +66,17 @@ export const comerciales = [
 export const locations = sedes;
 
 /** Categorías del blog. slug = prefijo de URL (se conserva 1:1 del sitio actual). */
+// `description` es el texto visible en la página; `metaDescription` es el que
+// ve quien busca en Google, así que responde a la intención de búsqueda y
+// cierra con un gancho. Máximo ~155 caracteres o Google lo corta.
 export const categories = [
   {
     slug: "flexografia",
     name: "Flexografía",
     description:
       "Todo sobre impresión flexográfica: fundamentos, materiales, ventajas y comparativas.",
+    metaDescription:
+      "Guías de impresión flexográfica escritas desde planta: materiales, ventajas y comparativas. Resuelve tus dudas técnicas y consúltanos tu caso.",
     isBlogIndex: true,
   },
   {
@@ -79,17 +84,23 @@ export const categories = [
     name: "Planchas",
     description:
       "Fotopolímeros y planchas flexográficas: Kodak Flexcel NX, distorsión, evolución y futuro.",
+    metaDescription:
+      "Planchas y fotopolímeros flexográficos explicados: Kodak Flexcel NX, distorsión y cómo elegir. Aprende a evitar paradas de máquina y merma.",
   },
   {
     slug: "anilox",
     name: "Anilox",
     description:
       "Rodillos anilox: BCM, lineatura y su papel en la transferencia de tinta.",
+    metaDescription:
+      "Todo sobre rodillos anilox: BCM, lineatura y transferencia de tinta. Aprende a elegir el anilox correcto y deja de perder densidad en máquina.",
   },
   {
     slug: "tintas",
     name: "Tintas",
     description: "Composición y comportamiento de las tintas en flexografía.",
+    metaDescription:
+      "Composición y comportamiento de las tintas flexográficas. Entiende por qué se te mueve el color en máquina y cómo mantenerlo estable por tiraje.",
   },
 ] as const;
 

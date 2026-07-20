@@ -27,7 +27,8 @@ export async function generateMetadata({
   if (!cat) return {};
   return buildMetadata({
     title: cat.slug === "flexografia" ? "Blog de flexografía" : cat.name,
-    description: cat.description,
+    // La de búsqueda, no la visible en la página.
+    description: cat.metaDescription,
     path: `/${cat.slug}/`,
   });
 }

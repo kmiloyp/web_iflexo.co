@@ -7,6 +7,7 @@ export const metadata = buildMetadata({
   description:
     "Aviso legal y condiciones de uso del sitio web de iFlexo Visión Gráfica.",
   path: "/aviso-legal/",
+  noIndex: true,
 });
 
 export default function AvisoLegalPage() {

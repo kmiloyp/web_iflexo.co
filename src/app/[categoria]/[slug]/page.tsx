@@ -63,6 +63,8 @@ export default async function ArticlePage({
       ? [article.cover_image_url]
       : [absoluteUrl("/brand/logo-color.png")],
     datePublished: article.published_at ?? undefined,
+    // Google usa dateModified para valorar la frescura del contenido.
+    dateModified: article.updated_at ?? article.published_at ?? undefined,
     author: { "@type": "Organization", name: article.author ?? siteConfig.name },
     publisher: {
       "@type": "Organization",

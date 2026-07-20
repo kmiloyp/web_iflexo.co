@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   description:
     "Información sobre el uso de cookies en el sitio de iFlexo Visión Gráfica y cómo gestionarlas.",
   path: "/politica-de-cookies/",
+  noIndex: true,
 });
 
 export default function PoliticaDeCookiesPage() {

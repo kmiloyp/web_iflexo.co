@@ -48,7 +48,10 @@ export function buildMetadata({
       description,
       ...(ogImages ? { images: ogImages.map((i) => i.url) } : {}),
     },
-    robots: noIndex ? { index: false, follow: false } : undefined,
+    // `follow: true` a propósito: la página se saca del índice, pero Google
+    // sigue rastreando sus enlaces. Con `nofollow` se cortaría el recorrido
+    // y el enlace interno dejaría de transmitir valor.
+    robots: noIndex ? { index: false, follow: true } : undefined,
   };
 }
 

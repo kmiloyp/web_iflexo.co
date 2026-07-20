@@ -17,9 +17,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/reduccion-de-color/",
     "/servicios-graficos/",
     "/contacto/",
-    "/privacy-policy/",
-    "/aviso-legal/",
-    "/politica-de-cookies/",
+    // Las legales van con noindex, así que no se listan aquí: pedir la
+    // indexación de una página que la rechaza es una señal contradictoria.
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPaths.map((path) => ({
