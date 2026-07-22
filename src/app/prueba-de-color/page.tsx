@@ -19,9 +19,11 @@ import {
 import { testimonials } from "@/lib/landings";
 
 const META = {
-  title: "Prueba de color certificada para flexografía | iFlexo",
+  // "prueba Sherpa" siempre en pareja, nunca "Sherpa" a secas: el término
+  // suelto compite con búsquedas de montañismo y atrae tráfico que rebota.
+  title: "Prueba de color Sherpa para flexografía | 95% de fidelidad",
   description:
-    "Prueba de color con hasta 95% de coincidencia con el impreso final. Aprobaciones más rápidas, menos reprocesos y menos discusiones con tu cliente.",
+    "Prueba de color certificada con 95% de coincidencia con el impreso final. Aprueba con tu cliente antes de montar en máquina y evita reprocesos.",
   path: "/prueba-de-color/",
 };
 
