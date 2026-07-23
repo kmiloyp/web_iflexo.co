@@ -1,6 +1,7 @@
 import type { PilarData } from "@/components/pilar/PaginaPilar";
 import { pilarFlexografia } from "./flexografia";
 import { pilarAnilox } from "./anilox";
+import { pilarPlanchas } from "./planchas";
 
 /**
  * Registro de páginas pilar por categoría. Una categoría sin entrada aquí
@@ -12,6 +13,7 @@ import { pilarAnilox } from "./anilox";
 const pilares: Record<string, PilarData> = {
   flexografia: pilarFlexografia,
   anilox: pilarAnilox,
+  planchas: pilarPlanchas,
 };
 
 export function getPilar(categoria: string): PilarData | null {
@@ -32,5 +34,10 @@ export const pilarMeta: Record<
     title: "Rodillo anilox: qué es, tipos y cómo elegirlo",
     description:
       "El anilox decide cuánta tinta llega a tu plancha. Aprende cómo funciona, qué lineatura y volumen elegir, cómo limpiarlo y cuándo reemplazarlo.",
+  },
+  planchas: {
+    title: "Cireles y planchas flexográficas: qué son y qué tipos hay",
+    description:
+      "Cirel, cliché, caucho o fotopolímero son la misma plancha. Te explicamos qué son, de qué están hechas, qué tipos existen y cómo cuidarlas.",
   },
 };

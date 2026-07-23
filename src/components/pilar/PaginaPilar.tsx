@@ -26,6 +26,11 @@ export type PilarBloque =
   | { type: "experiencia"; content: ReactNode }
   /** Dato o equivalencia numérica resaltada (p. ej. 1 BCM = 1,55 cm³/m²). */
   | { type: "equivalencia"; valor: ReactNode; nota?: ReactNode }
+  /** Lista término→definición en tarjetas (p. ej. cirel / cliché / caucho). */
+  | {
+      type: "definiciones";
+      items: { termino: string; definicion: ReactNode }[];
+    }
   /** Advertencia con icono de precaución y fondo de alerta. */
   | { type: "alerta"; content: ReactNode }
   /** Hueco de foto pendiente. Ver nota en `ImagenPendiente`. */
@@ -243,6 +248,25 @@ function Bloque({ bloque }: { bloque: PilarBloque }) {
             <p className="mt-2 text-sm text-ink-soft">{bloque.nota}</p>
           )}
         </div>
+      );
+
+    case "definiciones":
+      return (
+        <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+          {bloque.items.map((item) => (
+            <div
+              key={item.termino}
+              className="rounded-2xl border border-line bg-paper p-5"
+            >
+              <dt className="font-display text-lg font-semibold text-ink">
+                {item.termino}
+              </dt>
+              <dd className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                {item.definicion}
+              </dd>
+            </div>
+          ))}
+        </dl>
       );
 
     case "alerta":
