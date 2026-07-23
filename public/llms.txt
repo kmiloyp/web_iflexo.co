@@ -1,0 +1,31 @@
+# iFlexo Visión Gráfica
+
+> Preprensa flexográfica en Colombia. Fabricamos planchas de fotopolímero
+> (cireles) con tecnología Kodak Flexcel NX y exposición Shine LED, calibradas
+> para el anilox, la tinta y el sustrato de cada cliente. Sedes en Bogotá y
+> Medellín. Prueba de color con hasta 95% de coincidencia con el impreso final.
+
+iFlexo es un laboratorio de preprensa: entiende la plancha como el eslabón que
+más define la calidad y la eficiencia de un tiraje flexográfico, no como un
+insumo genérico. El contenido técnico del sitio está escrito desde planta por
+Camilo Yepes, director, con 16 años de experiencia en preprensa flexográfica.
+
+## Guías técnicas (pilares)
+
+- [Flexografía: la guía completa](https://iflexo.co/flexografia/): qué es, cómo funciona el proceso, elementos del sistema, qué se imprime, ventajas y problemas comunes.
+- [El rodillo anilox en flexografía](https://iflexo.co/anilox/): qué es, lineatura y volumen, tipos y geometrías, cómo elegirlo, limpieza y su relación con la plancha.
+- [Cireles y planchas flexográficas](https://iflexo.co/planchas/): por qué tantos nombres (cirel, cliché, caucho, fotopolímero), de qué están hechas, tipos, fabricación paso a paso y cuidado.
+- [Gestión de color en flexografía](https://iflexo.co/color/): ganancia de punto, curvas de compensación, Delta E y CIELab, repetibilidad y reducción de tintas.
+- [Tintas flexográficas](https://iflexo.co/tintas/): base agua, base solvente y UV; cómo elegirlas según el sustrato, control de viscosidad y problemas frecuentes.
+
+## Servicios
+
+- [Fotopolímeros Kodak Flexcel NX](https://iflexo.co/fotopolimeros/): planchas de punto plano calibradas para tu proceso.
+- [Prueba de color](https://iflexo.co/prueba-de-color/): prueba de color certificada con hasta 95% de coincidencia con el impreso final.
+- [Reducción de color](https://iflexo.co/reduccion-de-color/): análisis para imprimir con menos tintas sin perder el resultado visual.
+
+## Más información
+
+- [Sobre iFlexo](https://iflexo.co/nosotros/)
+- [Autor: Camilo Yepes](https://iflexo.co/autores/camilo-yepes/)
+- [Contacto](https://iflexo.co/contacto/)

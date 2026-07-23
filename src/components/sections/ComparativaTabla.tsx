@@ -73,16 +73,30 @@ export function ComparativaTabla({
                       )}
                     >
                       {typeof cell === "boolean" ? (
+                        // El icono es decorativo (aria-hidden); el texto Sí/No va
+                        // en sr-only para que crawlers, lectores de pantalla y
+                        // bots de IA no vean una celda vacía.
                         cell ? (
-                          <Check
-                            size={20}
-                            className={cn(
-                              "mx-auto",
-                              highlight ? "text-brand-amber" : "text-spectrum-green"
-                            )}
-                          />
+                          <>
+                            <span className="sr-only">Sí</span>
+                            <Check
+                              aria-hidden
+                              size={20}
+                              className={cn(
+                                "mx-auto",
+                                highlight ? "text-brand-amber" : "text-spectrum-green"
+                              )}
+                            />
+                          </>
                         ) : (
-                          <Minus size={18} className="mx-auto text-muted" />
+                          <>
+                            <span className="sr-only">No</span>
+                            <Minus
+                              aria-hidden
+                              size={18}
+                              className="mx-auto text-muted"
+                            />
+                          </>
                         )
                       ) : (
                         <span className={highlight ? "font-medium" : "text-ink-soft"}>

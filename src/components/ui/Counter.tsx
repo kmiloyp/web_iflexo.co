@@ -24,18 +24,29 @@ export function Counter({
   const decimals = numStr.includes(".") || numStr.includes(",") ? 1 : 0;
 
   const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(0);
+  // Se inicializa en el valor FINAL, no en 0: así el HTML del servidor ya
+  // contiene la cifra real y los bots que no ejecutan JS (GPTBot, ClaudeBot,
+  // PerplexityBot) la leen. La animación 0→valor se activa solo en cliente y
+  // solo para contadores que entran por scroll (ver más abajo).
+  const [display, setDisplay] = useState(target);
   const started = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || !parsed) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      // Muestra el valor final sin animar (patrón intencional, client-only).
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setDisplay(target);
-      return;
+      return; // Ya se muestra el valor final; no animamos.
     }
+
+    // Si el contador ya está a la vista al cargar (above the fold), se deja el
+    // valor final tal cual: animar desde 0 aquí produciría un parpadeo. Solo
+    // los que están por debajo del pliegue arrancan en 0 y cuentan al entrar.
+    const rect = el.getBoundingClientRect();
+    const yaVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (yaVisible) return;
+
+    setDisplay(0);
+
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting || started.current) return;
       started.current = true;

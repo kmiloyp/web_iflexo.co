@@ -158,7 +158,10 @@ export default function FotopolimerosPage() {
         ]}
         rows={[
           { label: "Fidelidad archivo → plancha", cells: [false, true, true] },
-          { label: "Densidad de sólidos", cells: ["Baja", "Alta", "Alta"] },
+          // Se quitó "Densidad de sólidos" (marcaba Alta/Alta en col. 2 y 3, sin
+          // diferenciar). En su lugar, una fila donde el proceso de iFlexo sí
+          // marca la diferencia frente a un Flexcel NX genérico: la calibración.
+          { label: "Curvas calibradas para tu proceso", cells: [false, false, true] },
           { label: "Altas luces / microtrama estable", cells: [false, "Media", true] },
           { label: "Uniformidad plancha a plancha", cells: [false, "Media", true] },
           { label: "Repetibilidad en el tiempo", cells: [false, "Media", true] },

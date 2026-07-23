@@ -13,7 +13,7 @@ import { videoTestimonial } from "@/lib/config";
  */
 export function VideoTestimonial({
   id = videoTestimonial.id,
-  title = "Lo que dicen nuestros clientes",
+  title = "Testimonios en video",
   eyebrow = "Testimonios reales",
   className,
 }: {
