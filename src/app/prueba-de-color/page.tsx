@@ -73,7 +73,7 @@ export default function PruebaDeColorPage() {
 
       <Hero
         eyebrow="Prueba de color certificada"
-        title="Que tu cliente apruebe una vez. **Y que en máquina salga eso mismo.**"
+        title="Prueba de color para flexografía **que sí se cumple en máquina**"
         subtitle="Hasta 95% de coincidencia entre la prueba y el impreso final. La frase que más escuchamos cuando comparan: “quedó igual a la prueba, es increíble”."
         bullets={[
           "Hasta 95% de coincidencia",
