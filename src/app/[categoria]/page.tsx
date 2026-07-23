@@ -174,7 +174,22 @@ export default async function CategoryPage({
           </>
         )}
         {articles.length === 0 ? (
-          <p className="text-ink-soft">Pronto publicaremos contenido aquí.</p>
+          <div className="rounded-2xl border border-dashed border-line bg-paper p-8 text-center">
+            <p className="font-display text-lg font-semibold text-ink">
+              Artículos en camino
+            </p>
+            <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
+              Estamos preparando contenido sobre {cat.name.toLowerCase()}.
+              Mientras tanto, la guía de arriba cubre lo esencial y puedes{" "}
+              <Link
+                href="/contacto/"
+                className="text-brand-coral underline underline-offset-2 hover:text-brand-magenta"
+              >
+                escribirnos tu caso
+              </Link>
+              .
+            </p>
+          </div>
         ) : (
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((a) => (

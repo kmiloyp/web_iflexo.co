@@ -18,8 +18,15 @@ import { cn } from "@/lib/utils";
 export type PilarBloque =
   /** Párrafos, listas y H3. Se escribe como JSX para poder llevar enlaces. */
   | { type: "prose"; content: ReactNode }
-  /** Tabla comparativa. Responsive por scroll horizontal, nunca como imagen. */
-  | { type: "tabla"; headers: string[]; rows: ReactNode[][]; caption?: string }
+  /** Tabla comparativa. Responsive por scroll horizontal, nunca como imagen.
+   *  highlightRows: índices (base 0) de filas a resaltar con fondo de acento. */
+  | {
+      type: "tabla";
+      headers: string[];
+      rows: ReactNode[][];
+      caption?: string;
+      highlightRows?: number[];
+    }
   /** "Regla práctica" / "el punto que nadie mide": cita destacada. */
   | { type: "destacado"; label: string; content: ReactNode }
   /** Experiencia en primera persona del autor. Es lo que no se puede copiar. */
@@ -300,11 +307,14 @@ function TablaComparativa({
   headers,
   rows,
   caption,
+  highlightRows,
 }: {
   headers: string[];
   rows: ReactNode[][];
   caption?: string;
+  highlightRows?: number[];
 }) {
+  const highlighted = new Set(highlightRows ?? []);
   return (
     <figure className="mt-6">
       <div className="overflow-x-auto rounded-2xl border border-line">
@@ -325,13 +335,22 @@ function TablaComparativa({
           </thead>
           <tbody className="divide-y divide-line">
             {rows.map((row, i) => (
-              <tr key={i} className="align-top">
+              <tr
+                key={i}
+                className={cn(
+                  "align-top",
+                  highlighted.has(i) && "bg-brand-coral/[0.07]"
+                )}
+              >
                 {row.map((cell, j) => (
                   <td
                     key={j}
                     className={cn(
                       "px-4 py-3 text-ink-soft",
-                      j === 0 && "font-medium text-ink"
+                      j === 0 && "font-medium text-ink",
+                      highlighted.has(i) &&
+                        j === 0 &&
+                        "border-l-2 border-brand-coral"
                     )}
                   >
                     {cell}

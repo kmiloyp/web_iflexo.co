@@ -123,5 +123,6 @@ insert into public.categories (slug, name, description) values
   ('flexografia', 'Flexografía', 'Fundamentos, materiales, ventajas y comparativas de la impresión flexográfica.'),
   ('planchas',    'Planchas',    'Fotopolímeros y planchas: Kodak Flexcel NX, distorsión y futuro.'),
   ('anilox',      'Anilox',      'Rodillos anilox: BCM, lineatura y transferencia de tinta.'),
-  ('tintas',      'Tintas',      'Composición y comportamiento de las tintas en flexografía.')
+  ('tintas',      'Tintas',      'Composición y comportamiento de las tintas en flexografía.'),
+  ('color',       'Color',       'Gestión de color: ganancia de punto, curvas, Delta E y repetibilidad.')
 on conflict (slug) do nothing;

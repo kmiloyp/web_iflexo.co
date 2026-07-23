@@ -2,6 +2,7 @@ import type { PilarData } from "@/components/pilar/PaginaPilar";
 import { pilarFlexografia } from "./flexografia";
 import { pilarAnilox } from "./anilox";
 import { pilarPlanchas } from "./planchas";
+import { pilarColor } from "./color";
 
 /**
  * Registro de páginas pilar por categoría. Una categoría sin entrada aquí
@@ -14,6 +15,7 @@ const pilares: Record<string, PilarData> = {
   flexografia: pilarFlexografia,
   anilox: pilarAnilox,
   planchas: pilarPlanchas,
+  color: pilarColor,
 };
 
 export function getPilar(categoria: string): PilarData | null {
@@ -39,5 +41,10 @@ export const pilarMeta: Record<
     title: "Cireles y planchas flexográficas: qué son y qué tipos hay",
     description:
       "Cirel, cliché, caucho o fotopolímero son la misma plancha. Te explicamos qué son, de qué están hechas, qué tipos existen y cómo cuidarlas.",
+  },
+  color: {
+    title: "Gestión de color en flexografía: guía completa",
+    description:
+      "Cómo lograr color repetible en flexografía: ganancia de punto, curvas de compensación, Delta E y por qué el impreso no coincide con lo aprobado.",
   },
 };

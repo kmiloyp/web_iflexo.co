@@ -102,6 +102,14 @@ export const categories = [
     metaDescription:
       "Composición y comportamiento de las tintas flexográficas. Entiende por qué se te mueve el color en máquina y cómo mantenerlo estable por tiraje.",
   },
+  {
+    slug: "color",
+    name: "Color",
+    description:
+      "Gestión de color en flexografía: ganancia de punto, curvas, Delta E y repetibilidad.",
+    metaDescription:
+      "Gestión de color en flexografía: ganancia de punto, curvas de compensación, Delta E y por qué el impreso no coincide con lo aprobado.",
+  },
 ] as const;
 
 export type CategorySlug = (typeof categories)[number]["slug"];
