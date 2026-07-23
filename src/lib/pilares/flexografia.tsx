@@ -239,6 +239,26 @@ export const pilarFlexografia: PilarData = {
             </p>
           ),
         },
+        {
+          type: "experiencia",
+          content: (
+            <>
+              <p>
+                El anilox mal elegido es uno de los problemas más comunes que
+                vemos. A juicio del operario, la elección del anilox depende solo
+                de la intensidad que entrega según su volumen BCM, pero se ignora
+                que existe una relación entre lineatura de plancha y lineatura de
+                anilox. Es habitual, porque muchas planchas flexográficas no
+                pueden llegar a densidades altas cuando llevan trama.
+              </p>
+              <p>
+                Hemos tenido que ir rompiendo esos paradigmas y enseñando que el
+                anilox debe ser una variable controlada cuando se trata de
+                imprimir CMYK, no un ajuste que se deja al criterio del momento.
+              </p>
+            </>
+          ),
+        },
       ],
     },
 
@@ -413,6 +433,20 @@ export const pilarFlexografia: PilarData = {
             </>
           ),
         },
+        {
+          type: "experiencia",
+          content: (
+            <p>
+              Los operarios de impresión muchas veces no saben qué tipo de
+              plancha o tecnología están usando. Pero las planchas de Miraclon
+              son amarillas, y ellos expresan que «las planchas amarillas les
+              hacen la vida más fácil»: llegan más rápido al color, no toman
+              tanto tiempo en máquina y mejoran sus indicadores de rendimiento.
+              Por eso siempre dicen lo mismo: «tráiganme solo planchas
+              amarillas».
+            </p>
+          ),
+        },
       ],
     },
 
@@ -565,6 +599,30 @@ export const pilarFlexografia: PilarData = {
             </p>
           ),
         },
+        {
+          type: "experiencia",
+          content: (
+            <>
+              <p>
+                Lo primero que revisamos cuando el color no da es comparar con
+                los datos técnicos de la huella de máquina —la caracterización
+                que se hizo inicialmente— y contrastarlos con la forma en que
+                están imprimiendo en ese mismo instante. Además, verificamos que
+                los parámetros técnicos de nuestra ficha se hayan aplicado. Eso
+                nos permite encontrar rápido alguna causa. Si todo está igual,
+                entramos a revisar densidades de tinta con más precisión.
+              </p>
+              <p>
+                Pero lo más probable es que el problema esté en la forma con la
+                que están comparando el color: muchas veces es contra un
+                dispositivo digital sin calibrar, y por eso «no quedan iguales».
+                Ahí está la importancia de una{" "}
+                <Link href="/prueba-de-color/">prueba de color certificada</Link>
+                : sin una referencia objetiva, se discute sobre percepciones.
+              </p>
+            </>
+          ),
+        },
       ],
     },
 
@@ -613,6 +671,21 @@ export const pilarFlexografia: PilarData = {
                 de producción más que cualquier ajuste en máquina.
               </p>
             </>
+          ),
+        },
+        {
+          type: "experiencia",
+          content: (
+            <p>
+              Cuando un cliente pasa de parar la máquina diez veces por tiraje a
+              menos de la mitad, es porque el procesamiento de las planchas
+              cumple una serie de medidas de calidad rigurosas que garantizan que
+              su durabilidad y sus bondades se mantengan durante muchos metros de
+              impresión continuos. La tecnología de plancha nos da la oportunidad
+              de mejorar la transferencia y la latitud de impresión: eso hace que
+              el color se sostenga y que las impresiones sean estables tiraje
+              tras tiraje.
+            </p>
           ),
         },
       ],
@@ -664,5 +737,13 @@ export const pilarFlexografia: PilarData = {
       "La mayor parte del resultado se decide antes de que el material entre a la prensa. Ahí es donde trabajamos.",
     href: "/fotopolimeros/",
     label: "Ver fotopolímeros",
+  },
+
+  autor: {
+    nombre: "Camilo Yepes",
+    cargo: "Director de iFlexo, empresa de preprensa",
+    anios: 16,
+    bio: "Desde la preprensa he recorrido muchas empresas de impresión, lo que me ha dado un concepto amplio de las necesidades de un impresor y de cómo resolverlas de forma fácil y eficiente, con la mirada de quien entiende las empresas como negocios que deben ser rentables desde sus procesos.",
+    // PENDIENTE: crear /autores/camilo-yepes/ y enlazar aquí con `href`.
   },
 };

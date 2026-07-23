@@ -22,6 +22,8 @@ export type PilarBloque =
   | { type: "tabla"; headers: string[]; rows: ReactNode[][]; caption?: string }
   /** "Regla práctica" / "el punto que nadie mide": cita destacada. */
   | { type: "destacado"; label: string; content: ReactNode }
+  /** Experiencia en primera persona del autor. Es lo que no se puede copiar. */
+  | { type: "experiencia"; content: ReactNode }
   /** Hueco de foto pendiente. Ver nota en `ImagenPendiente`. */
   | { type: "imagen"; descripcion: string };
 
@@ -34,6 +36,15 @@ export type PilarSeccion = {
 
 export type PilarFaq = { q: string; a: string };
 
+export type PilarAutor = {
+  nombre: string;
+  cargo: string;
+  anios: number;
+  bio: string;
+  /** Ruta de la página de autor, si existe. */
+  href?: string;
+};
+
 export type PilarData = {
   h1: string;
   /** Definición de 50-60 palabras. Es el fragmento que citan los motores de IA. */
@@ -43,6 +54,8 @@ export type PilarData = {
   secciones: PilarSeccion[];
   faq: { id: string; titulo: string; items: PilarFaq[] };
   cta: { titulo: string; cuerpo: string; href: string; label: string };
+  /** Firma del artículo. Pesa en E-E-A-T y en visibilidad en IA. */
+  autor?: PilarAutor;
 };
 
 export function PaginaPilar({ data }: { data: PilarData }) {
@@ -99,9 +112,44 @@ export function PaginaPilar({ data }: { data: PilarData }) {
           </div>
         </section>
 
+        {data.autor && <FirmaAutor autor={data.autor} />}
+
         <CtaPilar cta={data.cta} />
       </Container>
     </article>
+  );
+}
+
+/** Firma del artículo: quién lo escribe, con qué autoridad. */
+function FirmaAutor({ autor }: { autor: PilarAutor }) {
+  const inicial = autor.nombre.trim().charAt(0).toUpperCase();
+  return (
+    <aside className="mt-14 flex gap-4 rounded-2xl border border-line bg-sand p-6">
+      <div
+        aria-hidden
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-gradient font-display text-xl font-bold text-white"
+      >
+        {inicial}
+      </div>
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          Escrito por
+        </p>
+        <p className="mt-1 font-display text-lg font-semibold text-ink">
+          {autor.href ? (
+            <a href={autor.href} className="hover:text-brand-magenta">
+              {autor.nombre}
+            </a>
+          ) : (
+            autor.nombre
+          )}
+        </p>
+        <p className="text-sm text-ink-soft">
+          {autor.cargo} · {autor.anios} años en flexografía
+        </p>
+        <p className="mt-2 text-sm text-ink-soft">{autor.bio}</p>
+      </div>
+    </aside>
   );
 }
 
@@ -163,6 +211,19 @@ function Bloque({ bloque }: { bloque: PilarBloque }) {
             {bloque.label}
           </p>
           <div className="prose-iflexo mt-2 max-w-none [&>p:last-child]:mb-0">
+            {bloque.content}
+          </div>
+        </aside>
+      );
+
+    case "experiencia":
+      return (
+        <aside className="mt-6 rounded-2xl border border-line bg-paper p-5 shadow-[0_18px_40px_-32px_rgba(38,38,43,0.55)]">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-magenta">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
+            Desde nuestra experiencia
+          </p>
+          <div className="prose-iflexo mt-3 max-w-none [&>p:last-child]:mb-0">
             {bloque.content}
           </div>
         </aside>

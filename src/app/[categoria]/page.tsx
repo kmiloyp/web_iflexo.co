@@ -88,9 +88,18 @@ export default async function CategoryPage({
               "@type": "Article",
               headline: meta.title,
               description: meta.description,
-              // PENDIENTE: cuando exista la página de autor, cambiar a
-              // { "@type": "Person", name, jobTitle, url } — pesa en E-E-A-T.
-              author: { "@type": "Organization", name: siteConfig.name },
+              // Autor como Person (no Organization): pesa en E-E-A-T y en
+              // visibilidad en IA. `url` se añadirá al crear /autores/.
+              author: pilar.autor
+                ? {
+                    "@type": "Person",
+                    name: pilar.autor.nombre,
+                    jobTitle: pilar.autor.cargo,
+                    ...(pilar.autor.href
+                      ? { url: absoluteUrl(pilar.autor.href) }
+                      : {}),
+                  }
+                : { "@type": "Organization", name: siteConfig.name },
               publisher: {
                 "@type": "Organization",
                 name: siteConfig.name,
