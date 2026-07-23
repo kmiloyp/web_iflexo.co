@@ -9,12 +9,19 @@ import type { PilarData } from "@/components/pilar/PaginaPilar";
  * componentes se listan corto y se enlaza a esa página; no se desarrolla la
  * química.
  *
- * PENDIENTE — experiencia de Camilo en 3 puntos (viscosidad, problemas
- * frecuentes, tinta-anilox-plancha). NO se inventan. Dato opcional: marcas de
- * tinta con las que trabaja (Siegwerk u otras).
- *
  * Todos los enlaces internos apuntan a URLs que existen hoy.
  */
+
+// ── Experiencia de Camilo ────────────────────────────────────────────────
+// Texto REAL de Camilo, solo corregido de ortografía. Se respeta su voz.
+const EXP_VISCOSIDAD =
+  "Muchos impresores no cuentan con equipos de medición de viscosidad y lo hacen «al ojo», por percepción visual. Así no pueden controlar las densidades de las tintas, y ahí encuentran una variable enorme que les hace fluctuar la impresión.";
+
+const EXP_DIAGNOSTICO =
+  "Lo primero es medir parámetros según el tipo de tinta, empezando por que sea la misma referencia —o un símil entre proveedores que garantice un rango de tolerancia— antes de entrar a imprimir. Y luego ir monitoreando durante la impresión el comportamiento de esos rangos de tolerancia, con equipos calibrados o procesos repetitivos claros.";
+
+const EXP_BLANCO =
+  "Manteniendo todas las condiciones de impresión, sin invertir en nada, solo con un buen aprovechamiento de las tramas avanzadas (PureFlexo y los patrones Advantage) se pueden lograr opacidades altas con una menor entrega de tinta. Si con eso se ahorra un 20 % al año de tinta blanca —que suele ser el mayor gasto de tinta—, es un hecho ganador.";
 
 export const pilarTintas: PilarData = {
   h1: "Las tintas en la impresión flexográfica",
@@ -314,8 +321,10 @@ export const pilarTintas: PilarData = {
             </p>
           ),
         },
-        // PENDIENTE (Camilo): un caso concreto de control de viscosidad mal hecho
-        // en planta de cliente. Añadir aquí un bloque { type: "experiencia" }.
+        {
+          type: "experiencia",
+          content: <p>{EXP_VISCOSIDAD}</p>,
+        },
       ],
     },
 
@@ -385,9 +394,10 @@ export const pilarTintas: PilarData = {
             </p>
           ),
         },
-        // PENDIENTE (Camilo): su orden real de diagnóstico cuando lo llaman por un
-        // problema de color; ajustar el orden de arriba al suyo. Añadir aquí un
-        // bloque { type: "experiencia" }.
+        {
+          type: "experiencia",
+          content: <p>{EXP_DIAGNOSTICO}</p>,
+        },
       ],
     },
 
@@ -436,9 +446,10 @@ export const pilarTintas: PilarData = {
             </>
           ),
         },
-        // PENDIENTE (Camilo): el caso del cliente que redujo ~30% el consumo de
-        // tinta blanca. Es el dato más fuerte y encaja aquí. Añadir un bloque
-        // { type: "experiencia" }.
+        {
+          type: "experiencia",
+          content: <p>{EXP_BLANCO}</p>,
+        },
       ],
     },
   ],

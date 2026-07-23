@@ -11,13 +11,19 @@ import type { PilarData } from "@/components/pilar/PaginaPilar";
  *     reducir tintas se llama "Cómo se reduce el número de tintas sin perder
  *     el color" y enlaza a /reduccion-de-color/.
  *
- * PENDIENTE — experiencia de Camilo en 3 puntos (ver comentarios en las
- * secciones "por-que-no-coincide", "curvas" y "repetibilidad"). NO se inventan.
- * Datos a confirmar por Camilo: rangos de Delta E (varían por norma) e
- * iluminante de cabina (puse D50).
- *
  * Todos los enlaces internos apuntan a URLs que existen hoy.
  */
+
+// ── Experiencia de Camilo ────────────────────────────────────────────────
+// Texto REAL de Camilo, solo corregido de ortografía. Se respeta su voz.
+const EXP_NO_COINCIDE =
+  "La aplicación de curvas que no son las adecuadas, la falta de consistencia en la producción de las planchas y no acompañar el proceso de impresión del cliente para que se estandarice hacen que las variables —que son muchas— fluctúen, y que el resultado sea impredecible.";
+
+const EXP_CURVAS =
+  "Nuestra forma de hacerlo es a través de una caracterización lineal en una entrada a máquina, para establecer una «huella» de variables. Ese resultado impreso, ya controlado, se mide con un espectrofotómetro del 100 % al 50 %, comparando las ganancias y estableciendo las curvas según lo que nos entrega el software de ripeo.";
+
+const EXP_REPETIBILIDAD =
+  "Aquí quienes más ganan son los clientes que quieren evitar la logística de aprobación y los tiempos de revisión de color una vez que las planchas ya están hechas: solo con una prueba de color certificada se ve muy cercano el color final. Nuestros clientes confían tanto en ella que ya no hacen ir a su cliente a la imprenta; con la firma de la prueba de color física es más que suficiente para después entregarle un producto cercano al 95 %.";
 
 export const pilarColor: PilarData = {
   h1: "Gestión de color en flexografía",
@@ -105,9 +111,10 @@ export const pilarColor: PilarData = {
             </p>
           ),
         },
-        // PENDIENTE (Camilo): la conversación con clientes cuando el color no
-        // coincide — qué le dicen y qué encuentra al ir a mirar. Añadir aquí un
-        // bloque { type: "experiencia" }.
+        {
+          type: "experiencia",
+          content: <p>{EXP_NO_COINCIDE}</p>,
+        },
       ],
     },
 
@@ -234,9 +241,10 @@ export const pilarColor: PilarData = {
             </p>
           ),
         },
-        // PENDIENTE (Camilo): cómo construye las curvas en la práctica. Es su
-        // servicio; el detalle separa a quien calibra de quien solo entrega
-        // planchas. Añadir aquí un bloque { type: "experiencia" }.
+        {
+          type: "experiencia",
+          content: <p>{EXP_CURVAS}</p>,
+        },
       ],
     },
 
@@ -390,9 +398,10 @@ export const pilarColor: PilarData = {
             </p>
           ),
         },
-        // PENDIENTE (Camilo): el testimonio de percepción visual, la reacción del
-        // cliente al comparar ("quedó igual a la prueba, es increíble"). Añadir
-        // aquí un bloque { type: "experiencia" }.
+        {
+          type: "experiencia",
+          content: <p>{EXP_REPETIBILIDAD}</p>,
+        },
       ],
     },
 
