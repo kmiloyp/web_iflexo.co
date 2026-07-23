@@ -3,6 +3,7 @@ import { pilarFlexografia } from "./flexografia";
 import { pilarAnilox } from "./anilox";
 import { pilarPlanchas } from "./planchas";
 import { pilarColor } from "./color";
+import { pilarTintas } from "./tintas";
 
 /**
  * Registro de páginas pilar por categoría. Una categoría sin entrada aquí
@@ -16,6 +17,7 @@ const pilares: Record<string, PilarData> = {
   anilox: pilarAnilox,
   planchas: pilarPlanchas,
   color: pilarColor,
+  tintas: pilarTintas,
 };
 
 export function getPilar(categoria: string): PilarData | null {
@@ -46,5 +48,10 @@ export const pilarMeta: Record<
     title: "Gestión de color en flexografía: guía completa",
     description:
       "Cómo lograr color repetible en flexografía: ganancia de punto, curvas de compensación, Delta E y por qué el impreso no coincide con lo aprobado.",
+  },
+  tintas: {
+    title: "Tintas flexográficas: tipos, propiedades y cómo elegirlas",
+    description:
+      "Base agua, base solvente y UV: cómo elegir la tinta flexográfica según tu sustrato, controlar la viscosidad y evitar los problemas más comunes.",
   },
 };
