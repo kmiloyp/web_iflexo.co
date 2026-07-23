@@ -158,7 +158,7 @@ export const footerNav = {
     { label: "Contacto", href: "/contacto/" },
   ],
   legal: [
-    { label: "Política de privacidad", href: "/privacy-policy/" },
+    { label: "Política de privacidad", href: "/politica-de-privacidad/" },
     { label: "Aviso legal", href: "/aviso-legal/" },
     { label: "Política de cookies", href: "/politica-de-cookies/" },
   ],

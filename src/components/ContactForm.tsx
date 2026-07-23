@@ -178,7 +178,7 @@ export function ContactForm({ origen }: { origen?: string }) {
         <SubmitButton />
         <p className="text-xs text-muted">
           Al enviar aceptas nuestra{" "}
-          <Link href="/privacy-policy/" className="underline">
+          <Link href="/politica-de-privacidad/" className="underline">
             política de privacidad
           </Link>
           .

@@ -14,6 +14,7 @@ import {
   absoluteUrl,
 } from "@/lib/seo";
 import { getCategory } from "@/lib/config";
+import { pilarMeta } from "@/lib/pilares";
 import { getArticle, getPublishedArticles } from "@/lib/articles";
 import { siteConfig } from "@/lib/config";
 import { formatDate } from "@/lib/utils";
@@ -144,6 +145,29 @@ export default async function ArticlePage({
             className="prose-iflexo mt-10"
             dangerouslySetInnerHTML={{ __html: article.content_html }}
           />
+
+          {/* Enlace al pilar de la categoría: consolida la arquitectura de
+              contenido pasando autoridad del artículo hacia la guía madre. */}
+          {pilarMeta[article.category] && (
+            <Link
+              href={`/${article.category}/`}
+              className="mt-10 flex items-center justify-between gap-4 rounded-2xl border border-line bg-sand p-5 transition-colors hover:border-brand-coral"
+            >
+              <span>
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-coral">
+                  Guía completa
+                </span>
+                <span className="mt-1 block font-display text-lg font-semibold text-ink">
+                  {pilarMeta[article.category].title}
+                </span>
+              </span>
+              <ChevronRight
+                size={22}
+                className="shrink-0 text-muted"
+                aria-hidden
+              />
+            </Link>
+          )}
         </Container>
       </article>
 

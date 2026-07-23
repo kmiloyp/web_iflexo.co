@@ -6,7 +6,7 @@ export const metadata = buildMetadata({
   title: "Política de privacidad",
   description:
     "Política de tratamiento de datos personales de iFlexo Visión Gráfica, conforme a la Ley 1581 de 2012 de Colombia.",
-  path: "/privacy-policy/",
+  path: "/politica-de-privacidad/",
   // Legal obligatoria, no comercial: fuera del índice para no diluir el sitio.
   // `follow` sigue activo, así que el enlace del pie no pierde valor.
   noIndex: true,

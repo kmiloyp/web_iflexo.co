@@ -24,8 +24,16 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     // Any URL that changes vs. the old site gets a 301 here.
-    // (Kept empty on purpose: current routes are preserved 1:1.)
-    return [];
+    return [
+      // La política de privacidad pasó de slug en inglés a español, para
+      // que las tres legales sean consistentes. 301 para conservar cualquier
+      // enlace externo a la URL vieja.
+      {
+        source: "/privacy-policy",
+        destination: "/politica-de-privacidad/",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     const isProd = process.env.NODE_ENV === "production";
