@@ -15,6 +15,8 @@ export function buildMetadata({
   images,
   type = "website",
   noIndex = false,
+  locale,
+  alternateLanguages,
 }: {
   title: string;
   description: string;
@@ -22,23 +24,39 @@ export function buildMetadata({
   images?: string[];
   type?: "website" | "article";
   noIndex?: boolean;
+  /** og:locale de la página. Por defecto el del sitio (es_CO). */
+  locale?: string;
+  /**
+   * Versiones en otros idiomas para hreflang. Mapea código→ruta absoluta o
+   * relativa, p. ej. { "en": "/en/anilox/bcm/", "x-default": "/anilox/bcm/" }.
+   */
+  alternateLanguages?: Record<string, string>;
 }): Metadata {
   const url = absoluteUrl(path);
   // Si no se pasan imágenes, se usa la OG por defecto de marca
   // (app/opengraph-image.tsx). Los artículos pasan su portada.
   const ogImages = images?.map((src) => ({ url: src }));
 
+  const languages = alternateLanguages
+    ? Object.fromEntries(
+        Object.entries(alternateLanguages).map(([k, v]) => [
+          k,
+          v.startsWith("http") ? v : absoluteUrl(v),
+        ])
+      )
+    : undefined;
+
   return {
     // `absolute` evita que la plantilla global añada de nuevo "| iFlexo".
     title: { absolute: title },
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, ...(languages ? { languages } : {}) },
     openGraph: {
       title,
       description,
       url,
       siteName: siteConfig.name,
-      locale: siteConfig.locale,
+      locale: locale ?? siteConfig.locale,
       type,
       ...(ogImages ? { images: ogImages } : {}),
     },

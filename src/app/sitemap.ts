@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig, categories } from "@/lib/config";
 import { getPublishedArticles } from "@/lib/articles";
 import { autores } from "@/lib/autores";
+import { enArticles } from "@/lib/en-articles";
 
 export const revalidate = 3600;
 
@@ -48,10 +49,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.4,
   }));
 
+  // Artículos en inglés bajo /en/, con alternates hreflang a su par español.
+  const enEntries: MetadataRoute.Sitemap = enArticles.map((a) => {
+    const enUrl = `${base}/en/${a.category}/${a.slug}/`;
+    const esUrl = `${base}${a.esPath}`;
+    return {
+      url: enUrl,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: { languages: { en: enUrl, es: esUrl } },
+    };
+  });
+
   return [
     ...staticEntries,
     ...categoryEntries,
     ...articleEntries,
     ...autorEntries,
+    ...enEntries,
   ];
 }

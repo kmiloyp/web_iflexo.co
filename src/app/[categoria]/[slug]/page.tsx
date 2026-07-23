@@ -15,6 +15,7 @@ import {
 } from "@/lib/seo";
 import { getCategory } from "@/lib/config";
 import { pilarMeta } from "@/lib/pilares";
+import { EN_BY_ES } from "@/lib/en-articles";
 import { getArticle, getPublishedArticles } from "@/lib/articles";
 import { siteConfig } from "@/lib/config";
 import { formatDate } from "@/lib/utils";
@@ -35,12 +36,24 @@ export async function generateMetadata({
   const { categoria, slug } = await params;
   const article = await getArticle(categoria, slug);
   if (!article) return {};
+  const esPath = `/${article.category}/${article.slug}/`;
+  // Si el artículo tiene versión en inglés, emparejamos el hreflang.
+  const enPath = EN_BY_ES[esPath];
   return buildMetadata({
     title: article.meta_title ?? article.title,
     description: article.meta_description ?? article.excerpt ?? "",
-    path: `/${article.category}/${article.slug}/`,
+    path: esPath,
     type: "article",
     images: article.cover_image_url ? [article.cover_image_url] : undefined,
+    ...(enPath
+      ? {
+          alternateLanguages: {
+            es: esPath,
+            en: enPath,
+            "x-default": esPath,
+          },
+        }
+      : {}),
   });
 }
 
@@ -54,6 +67,7 @@ export default async function ArticlePage({
   if (!article) notFound();
 
   const cat = getCategory(article.category);
+  const enPath = EN_BY_ES[`/${article.category}/${article.slug}/`];
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -124,6 +138,17 @@ export default async function ArticlePage({
               <p className="mt-4 text-sm text-muted">
                 Por {article.author ?? siteConfig.shortName} ·{" "}
                 {formatDate(article.published_at)}
+              </p>
+            )}
+            {enPath && (
+              <p className="mt-2 text-sm text-muted">
+                <Link
+                  href={enPath}
+                  hrefLang="en"
+                  className="underline hover:text-ink"
+                >
+                  Read in English
+                </Link>
               </p>
             )}
           </header>
