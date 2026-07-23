@@ -12,19 +12,15 @@ import type { PilarData } from "@/components/pilar/PaginaPilar";
  */
 
 // ── Experiencia de Camilo ────────────────────────────────────────────────
-// Solo texto REAL de Camilo. Este párrafo es el que dio sobre el anilox y la
-// lineatura (encaja en "Cómo elegir el anilox correcto").
-//
-// PENDIENTE — el brief pide dos experiencias más que solo Camilo puede
-// escribir; NO se inventan:
-//   1. "Limpieza y mantenimiento": un caso real de anilox que nadie medía,
-//      con el dato de cuánto había caído el volumen si lo tiene.
-//   2. "Cómo el anilox afecta tu plancha": cómo trabaja las curvas según el
-//      anilox del cliente (es literalmente el servicio que vende).
-// Cuando los entregue, añadir un bloque { type: "experiencia" } en cada
-// sección, igual que este.
+// Texto REAL de Camilo, solo corregido de ortografía. Se respeta su voz.
 const EXPERIENCIA_ELEGIR =
   "El anilox mal elegido es uno de los problemas más comunes que vemos. A juicio del operario, la elección depende solo de la intensidad que entrega según su volumen BCM, pero se ignora que existe una relación entre lineatura de plancha y lineatura de anilox. Hemos tenido que ir rompiendo ese paradigma y enseñando que el anilox debe ser una variable controlada cuando se trata de imprimir CMYK, no un ajuste que se deja al criterio del momento.";
+
+const EXPERIENCIA_MANTENIMIENTO =
+  "Existen muchos mitos y miedos alrededor del anilox: para el impresor es una pieza importante de su sistema flexo, y suele creer que un anilox de tiempo atrás ya no le funciona. Pero la realidad es que, aunque se desgaste, va a seguir entregando tinta —tal vez no como antes, pero sigue siendo ese medio de transferencia hacia la plancha. La clave está en entender qué tecnología de plancha ayuda a optimizar y potenciar esa entrega. Hemos logrado que anilox que ya estaban descartados se vuelvan a usar, sacándoles provecho y evitando que el cliente tenga que invertir de más.";
+
+const EXPERIENCIA_CURVAS =
+  "La relación más importante a considerar es la de lineatura de impresión frente a lineatura de anilox: en teoría es de 1:6, aunque se acepta hasta 1:5 para que la trama impresa tenga un comportamiento óptimo. Una vez hecha la prueba de optimización con los anilox escogidos para la policromía —generalmente los cuatro de mejor lineatura y condición— revisamos las ganancias y establecemos las curvas para su aplicación. Y llevamos al cliente a mantener condiciones de repetibilidad en sus variables, para garantizar resultados más fáciles a la hora de imprimir.";
 
 export const pilarAnilox: PilarData = {
   h1: "El rodillo anilox en flexografía",
@@ -463,6 +459,10 @@ export const pilarAnilox: PilarData = {
             </p>
           ),
         },
+        {
+          type: "experiencia",
+          content: <p>{EXPERIENCIA_MANTENIMIENTO}</p>,
+        },
       ],
     },
 
@@ -505,6 +505,10 @@ export const pilarAnilox: PilarData = {
               </p>
             </>
           ),
+        },
+        {
+          type: "experiencia",
+          content: <p>{EXPERIENCIA_CURVAS}</p>,
         },
         {
           type: "prose",
