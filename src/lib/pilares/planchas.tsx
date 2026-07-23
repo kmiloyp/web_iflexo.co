@@ -18,6 +18,17 @@ import type { PilarData } from "@/components/pilar/PaginaPilar";
  * Todos los enlaces internos apuntan a URLs que existen hoy.
  */
 
+// ── Experiencia de Camilo ────────────────────────────────────────────────
+// Texto REAL de Camilo, solo corregido de ortografía. Se respeta su voz.
+const EXPERIENCIA_FABRICACION =
+  "Nosotros concebimos la preprensa como un insumo de mucha trascendencia al imprimir, y por eso la vemos como un laboratorio. Para dimensionar lo preciso y delicado de una plancha: el microtramado sobre su superficie solo se ve con un microscopio de mucho aumento. Si esos detalles que transfieren la tinta solo se ven con microscopio, es muy difícil controlarlos a simple vista. Lo que garantiza que salgan bien es el control y la medición en cada etapa, con insumos de calidad que lo respalden. Medimos la densidad de la película TIL con que se procesa; usamos sistemas de iluminación para revisar los detalles en cada etapa, test de exposición, micrómetros para verificar que las alturas estén dentro del rango, refractómetro para el solvente, durómetro para la dureza de la plancha y un sistema LED de exposición. Todo eso hace que el proceso sea medible y controlable, y que la plancha que sale esté lista para imprimir en las mejores condiciones.";
+
+const EXPERIENCIA_CUIDADO =
+  "Nosotros incluso ofrecemos una capacitación de cuidado y manipulación de planchas, porque el cuidado en el área de impresión es lo que garantiza que la plancha dure: tenemos clientes que llevan más de cinco años imprimiendo todavía con las mismas. Pero la exposición al ozono, a las luces o a los solventes de limpieza, sin el cuidado debido, afecta las planchas. Y cuando uno va a revisar, falta mucha conciencia sobre el cuidado de estos insumos, tanto de la alta dirección de las empresas como de los propios operarios.";
+
+const EXPERIENCIA_PROVEEDOR =
+  "Un cliente hizo un análisis del blanco: puso a prueba, al mismo tiempo, una plancha nuestra y otra de un proveedor importante en Colombia, midiendo entrega, opacidad y consumo de blanco a lo largo de ciertos metros. Al terminar el análisis, se dio cuenta de que en ese solo pedido se ahorró cerca de tres millones de pesos, y eso que la diferencia de precio entre las dos planchas era apenas del 10 %. Fue ahí donde el gerente dijo: «¿por qué no le estamos comprando todo a iFlexo, si al final del año vamos a ahorrar mucho dinero?».";
+
 export const pilarPlanchas: PilarData = {
   h1: "Cireles y planchas flexográficas",
 
@@ -344,6 +355,10 @@ export const pilarPlanchas: PilarData = {
           ),
         },
         {
+          type: "experiencia",
+          content: <p>{EXPERIENCIA_FABRICACION}</p>,
+        },
+        {
           type: "imagen",
           descripcion:
             "Foto del proceso de fabricación de plancha en tu planta: la etapa de exposición o de revelado (pasos 4-6), que es el diferenciador. Sin marcas de terceros visibles.",
@@ -407,6 +422,10 @@ export const pilarPlanchas: PilarData = {
               tanto del cuidado como del material impreso.
             </p>
           ),
+        },
+        {
+          type: "experiencia",
+          content: <p>{EXPERIENCIA_CUIDADO}</p>,
         },
       ],
     },
@@ -472,6 +491,10 @@ export const pilarPlanchas: PilarData = {
               barata al final del mes.
             </p>
           ),
+        },
+        {
+          type: "experiencia",
+          content: <p>{EXPERIENCIA_PROVEEDOR}</p>,
         },
       ],
     },
