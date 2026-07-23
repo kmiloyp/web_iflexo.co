@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig, categories } from "@/lib/config";
 import { getPublishedArticles } from "@/lib/articles";
+import { autores } from "@/lib/autores";
 
 export const revalidate = 3600;
 
@@ -41,5 +42,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...categoryEntries, ...articleEntries];
+  const autorEntries: MetadataRoute.Sitemap = autores.map((a) => ({
+    url: `${base}/autores/${a.slug}/`,
+    changeFrequency: "yearly",
+    priority: 0.4,
+  }));
+
+  return [
+    ...staticEntries,
+    ...categoryEntries,
+    ...articleEntries,
+    ...autorEntries,
+  ];
 }

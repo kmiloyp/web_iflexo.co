@@ -744,6 +744,6 @@ export const pilarFlexografia: PilarData = {
     cargo: "Director de iFlexo, empresa de preprensa",
     anios: 16,
     bio: "Desde la preprensa he recorrido muchas empresas de impresión, lo que me ha dado un concepto amplio de las necesidades de un impresor y de cómo resolverlas de forma fácil y eficiente, con la mirada de quien entiende las empresas como negocios que deben ser rentables desde sus procesos.",
-    // PENDIENTE: crear /autores/camilo-yepes/ y enlazar aquí con `href`.
+    href: "/autores/camilo-yepes/",
   },
 };
