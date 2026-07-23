@@ -1,5 +1,6 @@
 import type { PilarData } from "@/components/pilar/PaginaPilar";
 import { pilarFlexografia } from "./flexografia";
+import { pilarAnilox } from "./anilox";
 
 /**
  * Registro de páginas pilar por categoría. Una categoría sin entrada aquí
@@ -10,6 +11,7 @@ import { pilarFlexografia } from "./flexografia";
  */
 const pilares: Record<string, PilarData> = {
   flexografia: pilarFlexografia,
+  anilox: pilarAnilox,
 };
 
 export function getPilar(categoria: string): PilarData | null {
@@ -25,5 +27,10 @@ export const pilarMeta: Record<
     title: "Flexografía: qué es, cómo funciona y para qué sirve",
     description:
       "Guía completa de flexografía: cómo funciona el proceso, qué elementos intervienen, qué se imprime y cómo evitar los problemas más comunes.",
+  },
+  anilox: {
+    title: "Rodillo anilox: qué es, tipos y cómo elegirlo",
+    description:
+      "El anilox decide cuánta tinta llega a tu plancha. Aprende cómo funciona, qué lineatura y volumen elegir, cómo limpiarlo y cuándo reemplazarlo.",
   },
 };

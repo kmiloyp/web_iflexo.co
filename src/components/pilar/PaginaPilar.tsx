@@ -24,6 +24,10 @@ export type PilarBloque =
   | { type: "destacado"; label: string; content: ReactNode }
   /** Experiencia en primera persona del autor. Es lo que no se puede copiar. */
   | { type: "experiencia"; content: ReactNode }
+  /** Dato o equivalencia numérica resaltada (p. ej. 1 BCM = 1,55 cm³/m²). */
+  | { type: "equivalencia"; valor: ReactNode; nota?: ReactNode }
+  /** Advertencia con icono de precaución y fondo de alerta. */
+  | { type: "alerta"; content: ReactNode }
   /** Hueco de foto pendiente. Ver nota en `ImagenPendiente`. */
   | { type: "imagen"; descripcion: string };
 
@@ -224,6 +228,36 @@ function Bloque({ bloque }: { bloque: PilarBloque }) {
             Desde nuestra experiencia
           </p>
           <div className="prose-iflexo mt-3 max-w-none [&>p:last-child]:mb-0">
+            {bloque.content}
+          </div>
+        </aside>
+      );
+
+    case "equivalencia":
+      return (
+        <div className="mt-6 flex flex-col items-center rounded-2xl border border-line bg-spectrum-teal/10 px-6 py-7 text-center">
+          <p className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            {bloque.valor}
+          </p>
+          {bloque.nota && (
+            <p className="mt-2 text-sm text-ink-soft">{bloque.nota}</p>
+          )}
+        </div>
+      );
+
+    case "alerta":
+      return (
+        <aside
+          role="note"
+          className="mt-6 flex gap-3 rounded-2xl border border-brand-magenta/30 bg-brand-magenta/[0.06] p-5"
+        >
+          <span
+            aria-hidden
+            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-magenta text-sm font-bold text-white"
+          >
+            !
+          </span>
+          <div className="prose-iflexo max-w-none [&>p:last-child]:mb-0 [&_p]:text-ink">
             {bloque.content}
           </div>
         </aside>
