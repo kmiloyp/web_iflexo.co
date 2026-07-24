@@ -31,6 +31,12 @@ export const metadata = buildMetadata(META);
 
 const faq = [
   {
+    // F1 (SEO): la keyword "prueba Sherpa" estaba en el title pero no en el
+    // cuerpo. 208 impresiones de "qué es una sherpa en impresión" con 0% CTR.
+    q: "¿Qué es una prueba Sherpa?",
+    a: "En preprensa flexográfica se llama coloquialmente «prueba Sherpa» a la prueba de color de contrato: una referencia física y medida del color final que el cliente firma para aprobar antes de imprimir. En iFlexo la hacemos con flujo GMG ColorProof, impresora Epson y verificación con espectrofotómetro en cabina D50, con hasta 95% de coincidencia con el impreso.",
+  },
+  {
     q: "¿Qué significa el 95% de coincidencia?",
     a: "Que la prueba reproduce el color del impreso final con hasta un 95% de fidelidad, medido con instrumentos y contra el impreso real —no contra un ideal—, bajo condiciones controladas de tu proceso (anilox, tintas y sustrato).",
   },
