@@ -322,6 +322,18 @@ export const pilarTintas: PilarData = {
           ),
         },
         {
+          type: "prose",
+          content: (
+            <p>
+              A fondo en{" "}
+              <Link href="/tintas/viscosidad/">
+                viscosidad de la tinta flexográfica: por qué controlarla
+              </Link>
+              .
+            </p>
+          ),
+        },
+        {
           type: "experiencia",
           content: <p>{EXP_VISCOSIDAD}</p>,
         },

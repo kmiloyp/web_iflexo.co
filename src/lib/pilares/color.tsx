@@ -181,6 +181,18 @@ export const pilarColor: PilarData = {
             </p>
           ),
         },
+        {
+          type: "prose",
+          content: (
+            <p>
+              Lo desarrollamos a fondo en{" "}
+              <Link href="/color/ganancia-de-punto/">
+                ganancia de punto en flexografía: qué es y cómo controlarla
+              </Link>
+              .
+            </p>
+          ),
+        },
       ],
     },
 
@@ -336,6 +348,18 @@ export const pilarColor: PilarData = {
               a ser un dato. Puedes acordar una tolerancia por escrito, medirla y
               demostrar que se cumplió. Es la diferencia entre discutir y
               documentar.
+            </p>
+          ),
+        },
+        {
+          type: "prose",
+          content: (
+            <p>
+              Más sobre{" "}
+              <Link href="/color/delta-e/">
+                Delta E: cómo medir la diferencia entre dos colores
+              </Link>
+              .
             </p>
           ),
         },

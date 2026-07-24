@@ -367,6 +367,18 @@ export const pilarAnilox: PilarData = {
             </p>
           ),
         },
+        {
+          type: "prose",
+          content: (
+            <p>
+              Paso a paso en{" "}
+              <Link href="/anilox/como-elegir/">
+                cómo elegir el anilox correcto para tu trabajo
+              </Link>
+              .
+            </p>
+          ),
+        },
       ],
     },
 
