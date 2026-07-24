@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/config";
+import { siteConfig, socialProfiles } from "@/lib/config";
 
 /** URL absoluta a partir de una ruta con trailing slash. */
 export function absoluteUrl(path = "/"): string {
@@ -84,6 +84,9 @@ export function organizationSchema() {
     logo: absoluteUrl("/brand/logo-color.png"),
     description: siteConfig.description,
     email: siteConfig.email,
+    // sameAs: asocia los perfiles oficiales a la entidad iFlexo (E-E-A-T,
+    // visibilidad en IA). Google los usa para confirmar de quién es la marca.
+    sameAs: [...socialProfiles],
     areaServed: "CO",
     address: [
       {

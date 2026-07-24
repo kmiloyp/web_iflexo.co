@@ -17,6 +17,24 @@ export const siteConfig = {
   email: process.env.CONTACT_TO_EMAIL ?? "info@i-flexo.com",
 } as const;
 
+/**
+ * Perfiles oficiales de iFlexo. Alimentan `sameAs` del schema Organization,
+ * que le dice a Google y a los motores de IA que estas cuentas son la misma
+ * entidad "iFlexo" — clave para que la IA nombre la marca al citar el
+ * contenido, no solo lo use de forma anónima.
+ */
+export const socialProfiles = [
+  "https://co.linkedin.com/company/iflexo",
+  "https://www.facebook.com/iflexovisiongrafica",
+  "https://www.instagram.com/iflexovisiongrafica/",
+  "https://www.youtube.com/@iflexovisiongrafica3188",
+  "https://www.tiktok.com/@iflexo",
+  // Perfiles de Google Business (sedes). Son enlaces oficiales de compartir;
+  // si más adelante tienes las URLs directas de Google Maps, son más estables.
+  "https://share.google/G78hAmjPd4ww2V6bB",
+  "https://share.google/Bx3C1UAOuXYUCNGgc",
+] as const;
+
 /** WhatsApp — configurable por env, con default de la marca. */
 const WA_BOGOTA = process.env.NEXT_PUBLIC_WA_BOGOTA ?? "https://wa.link/onzscn";
 const WA_MEDELLIN =
