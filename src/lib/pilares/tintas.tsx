@@ -110,6 +110,18 @@ export const pilarTintas: PilarData = {
       titulo: "Los tres tipos de tinta flexográfica",
       bloques: [
         {
+          type: "prose",
+          content: (
+            <p>
+              Una tinta se puede clasificar por varios criterios, pero el
+              principal es su <strong>base o vehículo</strong>. También se
+              clasifican por su mecanismo de secado —evaporación o curado UV— y
+              por su aplicación según el sustrato y el sector. Estas son las tres
+              familias por vehículo:
+            </p>
+          ),
+        },
+        {
           type: "definiciones",
           items: [
             {
@@ -187,6 +199,30 @@ export const pilarTintas: PilarData = {
               "Lámparas UV",
             ],
           ],
+        },
+        {
+          type: "destacado",
+          label: "No toda máquina usa cualquier tinta",
+          content: (
+            <p>
+              Cada familia exige condiciones distintas: la base agua necesita más
+              energía de secado; la base solvente, sistemas de extracción y
+              protocolos de seguridad; la UV, lámparas en cada estación. Elegir
+              una tinta que la máquina no está preparada para manejar es una causa
+              frecuente de problemas de anclaje, secado y color.
+            </p>
+          ),
+        },
+        {
+          type: "experiencia",
+          content: (
+            <p>
+              Las tintas en flexografía tienen diversas formas de clasificarse,
+              pero la principal es en base agua, base solvente o tintas UV. No
+              todos pueden usar cualquier tinta: cada una requiere unas
+              condiciones especiales en máquina y también de control.
+            </p>
+          ),
         },
       ],
     },
