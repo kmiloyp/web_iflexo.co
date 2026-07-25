@@ -295,6 +295,19 @@ export const pilarTintas: PilarData = {
             </p>
           ),
         },
+        {
+          type: "prose",
+          content: (
+            <p>
+              Sobre películas transparentes o metalizadas, la base es el blanco:
+              su opacidad define cómo se ven los demás colores. Lo vemos en{" "}
+              <Link href="/tintas/blanco-de-cobertura/">
+                tinta blanca: opacidad, cobertura y consumo
+              </Link>
+              .
+            </p>
+          ),
+        },
       ],
     },
 

@@ -448,6 +448,18 @@ export const pilarAnilox: PilarData = {
         {
           type: "prose",
           content: (
+            <p>
+              Métodos, frecuencia y qué no hacer en{" "}
+              <Link href="/anilox/limpieza/">
+                limpieza de anilox: cómo hacerla sin dañar el rodillo
+              </Link>
+              .
+            </p>
+          ),
+        },
+        {
+          type: "prose",
+          content: (
             <>
               <h3>Medición: lo que no se mide, se supone</h3>
               <p>

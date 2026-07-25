@@ -257,6 +257,18 @@ export const pilarColor: PilarData = {
           type: "experiencia",
           content: <p>{EXP_CURVAS}</p>,
         },
+        {
+          type: "prose",
+          content: (
+            <p>
+              Paso a paso en{" "}
+              <Link href="/color/curvas-de-compensacion/">
+                curvas de compensación: qué son y cómo se hacen
+              </Link>
+              .
+            </p>
+          ),
+        },
       ],
     },
 
@@ -466,6 +478,13 @@ export const pilarColor: PilarData = {
                 la reducción no funciona: se convierte en aproximaciones que el
                 cliente rechaza. Es decir, todo lo anterior de esta guía es el
                 requisito previo.
+              </p>
+              <p>
+                Lo desarrollamos en{" "}
+                <Link href="/color/gamut-extendido/">
+                  gamut extendido (ECG): más colores con menos tintas
+                </Link>
+                .
               </p>
             </>
           ),

@@ -348,6 +348,17 @@ export const pilarFlexografia: PilarData = {
                 muchísimos más metros. Aquí cada parada de máquina y cada gramo
                 de tinta cuesta de verdad.
               </p>
+              <p>
+                Guías dedicadas:{" "}
+                <Link href="/flexografia/etiquetas/">
+                  etiquetas flexográficas
+                </Link>{" "}
+                y{" "}
+                <Link href="/flexografia/empaques-y-bolsas/">
+                  empaques y bolsas
+                </Link>
+                .
+              </p>
             </>
           ),
         },
@@ -429,6 +440,17 @@ export const pilarFlexografia: PilarData = {
                 preprensa, no desde la máquina. Una plancha con curvas calibradas
                 para tu anilox y tu sustrato reduce los dos problemas antes de
                 que el material entre a la prensa.
+              </p>
+              <p>
+                Lo vemos en detalle en{" "}
+                <Link href="/flexografia/costos/">
+                  costos de la flexografía
+                </Link>{" "}
+                y en{" "}
+                <Link href="/flexografia/reducir-merma/">
+                  cómo reducir la merma
+                </Link>
+                .
               </p>
             </>
           ),
@@ -583,7 +605,13 @@ export const pilarFlexografia: PilarData = {
                   montaje del cilindro.
                 </li>
               </ul>
-              {/* PENDIENTE: enlazar a /planchas/defectos-comunes/ cuando exista. */}
+              <p>
+                Cada uno, con su causa y su solución, en{" "}
+                <Link href="/planchas/defectos-comunes/">
+                  defectos de impresión flexográfica y cómo evitarlos
+                </Link>
+                .
+              </p>
             </>
           ),
         },

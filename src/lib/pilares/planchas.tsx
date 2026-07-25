@@ -234,6 +234,14 @@ export const pilarPlanchas: PilarData = {
                 fabricación específico, no solo un tipo de plancha: depende de cómo
                 se graba, se expone y se revela.
               </p>
+              <p>
+                Es lo que permite hoy sacar sólidos densos y tramas finas con una
+                sola plancha:{" "}
+                <Link href="/planchas/una-sola-plancha/">
+                  por qué ya no necesitas doble negro
+                </Link>
+                .
+              </p>
             </>
           ),
         },
