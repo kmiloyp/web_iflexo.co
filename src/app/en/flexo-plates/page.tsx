@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { QuoteForm } from "@/components/landing-en/QuoteForm";
+import { WhatsAppLink } from "@/components/landing-en/WhatsAppLink";
 import { buildMetadata, absoluteUrl, faqSchema } from "@/lib/seo";
 import { siteConfig, whatsapp } from "@/lib/config";
 
@@ -290,14 +291,12 @@ export default function FlexoPlatesLanding() {
             >
               Request a quote
             </a>
-            <a
+            <WhatsAppLink
               href={WA}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex h-12 items-center gap-2 rounded-full bg-[#25D366] px-8 font-semibold text-white hover:brightness-95"
             >
               <WhatsAppIcon className="h-[1.15em] w-[1.15em]" /> Message us on WhatsApp
-            </a>
+            </WhatsAppLink>
           </div>
         </div>
       </section>

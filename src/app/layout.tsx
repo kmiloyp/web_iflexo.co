@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ConditionalChrome } from "@/components/ConditionalChrome";
+import { GoogleTag } from "@/components/GoogleTag";
 import { siteConfig } from "@/lib/config";
 
 const sora = Sora({
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="es-CO" className={`${sora.variable} ${inter.variable}`}>
       <body className="min-h-dvh antialiased">
+        <GoogleTag />
         <ConditionalChrome>{children}</ConditionalChrome>
         <Analytics />
         <SpeedInsights />

@@ -3,31 +3,18 @@
 import { useActionState, useEffect } from "react";
 import { submitQuote, type QuoteState } from "@/app/actions/quote";
 import { WhatsAppIcon } from "@/components/ui/icons";
+import { WhatsAppLink } from "@/components/landing-en/WhatsAppLink";
+import { adsConversion, CONVERSIONS } from "@/lib/ads";
 
 const initial: QuoteState = { status: "idle" };
-
-// Google Ads / gtag global opcional (se declara para TS; puede no existir).
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-    /** Hook de conversión que puedes definir con tu snippet de Google Ads. */
-    iflexoAdsConversion?: () => void;
-  }
-}
 
 export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
   const [state, action, pending] = useActionState(submitQuote, initial);
 
-  // Dispara el evento de conversión de Google Ads al recibir un envío exitoso.
+  // Conversión "Lead - Form" de Google Ads al recibir un envío exitoso.
   useEffect(() => {
     if (state.status !== "success") return;
-    // Opción A: hook propio que defines con tu snippet de Ads.
-    window.iflexoAdsConversion?.();
-    // Opción B: gtag directo. PENDIENTE: reemplaza AW-XXXXXXXXX/YYYY por tu
-    // ID + etiqueta de conversión de Google Ads.
-    window.gtag?.("event", "conversion", {
-      send_to: "AW-XXXXXXXXX/YYYY", // [DATO PENDIENTE: ID de conversión de Ads]
-    });
+    adsConversion(CONVERSIONS.leadForm);
   }, [state.status]);
 
   if (state.status === "success") {
@@ -43,14 +30,12 @@ export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
           Request received
         </h2>
         <p className="mt-2 text-ink-soft">{state.message}</p>
-        <a
+        <WhatsAppLink
           href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white hover:brightness-95"
         >
           <WhatsAppIcon className="h-[1.15em] w-[1.15em]" /> Message us on WhatsApp
-        </a>
+        </WhatsAppLink>
       </div>
     );
   }
@@ -121,14 +106,12 @@ export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
         {pending ? "Sending…" : "Request a quote"}
       </button>
 
-      <a
+      <WhatsAppLink
         href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
         className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#25D366] text-sm font-semibold text-white hover:brightness-95"
       >
         <WhatsAppIcon className="h-[1.15em] w-[1.15em]" /> Prefer WhatsApp? Message us
-      </a>
+      </WhatsAppLink>
 
       <p className="mt-3 text-center text-xs text-muted">
         We reply from Colombia · Plates shipped to the U.S. via DHL in 48 h.

@@ -40,14 +40,24 @@ const nextConfig: NextConfig = {
 
     // CSP: se aplica solo en producción (en dev rompería el HMR de Next).
     // Permite: propio origen, Supabase, YouTube (nocookie) e imágenes de yt.
+    // Dominios de Google (gtag.js, GA4, Google Ads) que hay que permitir para
+    // que carguen la etiqueta y se registren las conversiones.
+    const google = {
+      script: "https://www.googletagmanager.com",
+      connect:
+        "https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://googleads.g.doubleclick.net https://www.google.com",
+      img: "https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://www.google.com",
+      frame: "https://td.doubleclick.net https://www.googletagmanager.com",
+    };
+
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline'",
+      `script-src 'self' 'unsafe-inline' ${google.script}`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://*.supabase.co https://iflexo.co https://i.ytimg.com https://img.youtube.com",
+      `img-src 'self' data: blob: https://*.supabase.co https://iflexo.co https://i.ytimg.com https://img.youtube.com ${google.img}`,
       "font-src 'self'",
-      "connect-src 'self' https://*.supabase.co https://*.vercel-insights.com",
-      "frame-src 'self' https://www.youtube-nocookie.com",
+      `connect-src 'self' https://*.supabase.co https://*.vercel-insights.com ${google.connect}`,
+      `frame-src 'self' https://www.youtube-nocookie.com ${google.frame}`,
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
