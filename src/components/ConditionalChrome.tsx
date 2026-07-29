@@ -15,8 +15,12 @@ import { organizationSchema } from "@/lib/seo";
 export function ConditionalChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
+  // Landings de conversión (Google Ads): sin nav/footer/chatbot del sitio;
+  // traen su propio header y footer mínimos para no distraer del formulario.
+  const isBareLanding = pathname?.startsWith("/en/flexo-plates");
 
-  if (isAdmin) return <main className="min-h-dvh">{children}</main>;
+  if (isAdmin || isBareLanding)
+    return <main className="min-h-dvh">{children}</main>;
 
   return (
     <>
