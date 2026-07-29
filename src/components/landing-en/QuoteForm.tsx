@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { submitQuote, type QuoteState } from "@/app/actions/quote";
+import { WhatsAppIcon } from "@/components/ui/icons";
 
 const initial: QuoteState = { status: "idle" };
 
@@ -31,7 +32,7 @@ export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
 
   if (state.status === "success") {
     return (
-      <div className="rounded-2xl border border-line bg-white p-8 text-center shadow-xl">
+      <div className="rounded-2xl border border-line bg-white p-8 text-center text-ink shadow-xl">
         <div
           aria-hidden
           className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-spectrum-green/15 text-2xl text-spectrum-green"
@@ -46,9 +47,9 @@ export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-line px-6 text-sm font-medium hover:bg-sand"
+          className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white hover:brightness-95"
         >
-          Or message us on WhatsApp
+          <WhatsAppIcon className="h-[1.15em] w-[1.15em]" /> Message us on WhatsApp
         </a>
       </div>
     );
@@ -58,7 +59,7 @@ export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
     <form
       id="quote"
       action={action}
-      className="scroll-mt-24 rounded-2xl border border-line bg-white p-6 shadow-xl sm:p-7"
+      className="scroll-mt-24 rounded-2xl border border-line bg-white p-6 text-ink shadow-xl sm:p-7"
       noValidate
     >
       <h2 className="font-display text-xl font-bold text-ink">Request a quote</h2>
@@ -124,9 +125,9 @@ export function QuoteForm({ whatsappUrl }: { whatsappUrl: string }) {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-line text-sm font-medium hover:bg-sand"
+        className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#25D366] text-sm font-semibold text-white hover:brightness-95"
       >
-        Prefer WhatsApp? Message us
+        <WhatsAppIcon className="h-[1.15em] w-[1.15em]" /> Prefer WhatsApp? Message us
       </a>
 
       <p className="mt-3 text-center text-xs text-muted">

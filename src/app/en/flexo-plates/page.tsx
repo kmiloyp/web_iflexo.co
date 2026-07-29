@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
+import { WhatsAppIcon } from "@/components/ui/icons";
 import { QuoteForm } from "@/components/landing-en/QuoteForm";
 import { buildMetadata, absoluteUrl, faqSchema } from "@/lib/seo";
 import { siteConfig, whatsapp } from "@/lib/config";
@@ -213,15 +214,39 @@ export default function FlexoPlatesLanding() {
         </div>
       </section>
 
-      {/* Testimonio con cifra. */}
-      <section className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8">
-        <blockquote className="font-display text-2xl font-semibold leading-snug tracking-tight text-ink">
-          &ldquo;[DATO PENDIENTE: testimonio de un cliente de EE.UU. con cifra —
-          p. ej. ahorro por millar o reducción de paradas].&rdquo;
-        </blockquote>
-        <p className="mt-4 text-sm text-muted">
-          [DATO PENDIENTE: nombre, cargo y empresa del cliente]
-        </p>
+      {/* Resultados reales de clientes en EE.UU. (casos de Miami). */}
+      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+        <h2 className="text-center font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+          Results from printers in the U.S.
+        </h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <figure className="rounded-2xl border border-line bg-sand p-7">
+            <p className="font-display text-3xl font-extrabold text-ink">
+              6–7 colors → 4 (CMYK)
+            </p>
+            <blockquote className="mt-3 text-ink-soft">
+              A flexible-packaging converter in Miami used to run jobs with 6 or 7
+              spot colors. With our plates and color work, they now produce about
+              80% of their jobs in CMYK alone — fewer inks, lower cost.
+            </blockquote>
+            <figcaption className="mt-4 text-sm text-muted">
+              Flexible-packaging converter · Miami, FL
+            </figcaption>
+          </figure>
+          <figure className="rounded-2xl border border-line bg-sand p-7">
+            <p className="font-display text-3xl font-extrabold text-ink">
+              90%+ match to the proof
+            </p>
+            <blockquote className="mt-3 text-ink-soft">
+              A narrow-web label printer in Miami stabilized its results to within
+              90% or more of the certified color proof. Their waste dropped and so
+              did the time spent getting jobs approved.
+            </blockquote>
+            <figcaption className="mt-4 text-sm text-muted">
+              Narrow-web label printer · Miami, FL
+            </figcaption>
+          </figure>
+        </div>
       </section>
 
       {/* FAQ. */}
@@ -269,9 +294,9 @@ export default function FlexoPlatesLanding() {
               href={WA}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center rounded-full border border-white/20 px-8 font-medium text-white hover:bg-white/10"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-[#25D366] px-8 font-semibold text-white hover:brightness-95"
             >
-              Message us on WhatsApp
+              <WhatsAppIcon className="h-[1.15em] w-[1.15em]" /> Message us on WhatsApp
             </a>
           </div>
         </div>
