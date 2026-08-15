@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { SEED_CONTENT } from "@/lib/seed-content";
 import type { CategorySlug } from "@/lib/config";
@@ -55,7 +55,7 @@ export const SEED_ARTICLES: Article[] = SEED_CONTENT.map((c) => ({
 export async function getPublishedArticles(): Promise<Article[]> {
   if (isSupabaseConfigured()) {
     try {
-      const supabase = await createClient();
+      const supabase = createPublicClient();
       const { data, error } = await supabase
         .from("articles")
         .select("*")
