@@ -484,6 +484,20 @@ export const pilarAnilox: PilarData = {
           ),
         },
         {
+          type: "prose",
+          content: (
+            <p>
+              Cómo distinguir desgaste de taponamiento, cómo medir la pérdida de
+              volumen y qué criterios usar para reemplazar el rodillo en{" "}
+              <Link href="/anilox/desgaste/">
+                desgaste del anilox: cómo detectarlo, medirlo y saber cuándo
+                cambiarlo
+              </Link>
+              .
+            </p>
+          ),
+        },
+        {
           type: "experiencia",
           content: <p>{EXPERIENCIA_MANTENIMIENTO}</p>,
         },
