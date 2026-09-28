@@ -106,6 +106,10 @@ correo).
   `revalidatePath` las regenera fuera de un request. Ahora usan
   `createPublicClient()` (`src/lib/supabase/public.ts`). **Regla:** nada
   público debe leer con el cliente de cookies.
+- **Guardar/publicar en el panel** (causa de fondo, 28 sep): el sanitizador
+  usaba `isomorphic-dompurify`, cuyo jsdom no carga en Vercel
+  (`ERR_REQUIRE_ESM`) y tumbaba todas las acciones del panel. Se cambió a
+  `sanitize-html`. No volver a meter jsdom en código de servidor.
 - Contadores, celdas de tabla y cifras: siempre en el HTML servido (los bots
   de IA no ejecutan JS).
 
