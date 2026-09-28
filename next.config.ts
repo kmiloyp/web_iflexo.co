@@ -41,13 +41,17 @@ const nextConfig: NextConfig = {
     // CSP: se aplica solo en producción (en dev rompería el HMR de Next).
     // Permite: propio origen, Supabase, YouTube (nocookie) e imágenes de yt.
     // Dominios de Google (gtag.js, GA4, Google Ads) que hay que permitir para
-    // que carguen la etiqueta y se registren las conversiones.
+    // que carguen la etiqueta y se registren las conversiones. Google Ads
+    // también usa *.doubleclick.net, googleadservices y el dominio de país
+    // (google.com.co para visitas desde Colombia); CSP no admite comodín de
+    // TLD, así que se listan los que aplican.
+    const googleAds =
+      "https://*.doubleclick.net https://www.googleadservices.com https://www.google.com https://google.com https://www.google.com.co";
     const google = {
-      script: "https://www.googletagmanager.com",
-      connect:
-        "https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://googleads.g.doubleclick.net https://www.google.com",
-      img: "https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://www.google.com",
-      frame: "https://td.doubleclick.net https://www.googletagmanager.com",
+      script: `https://www.googletagmanager.com ${googleAds}`,
+      connect: `https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com ${googleAds}`,
+      img: `https://www.googletagmanager.com https://www.google-analytics.com ${googleAds}`,
+      frame: "https://*.doubleclick.net https://www.googletagmanager.com",
     };
 
     const csp = [
