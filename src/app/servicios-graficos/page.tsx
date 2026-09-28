@@ -1,4 +1,5 @@
 import { Hero } from "@/components/landing/Hero";
+import { ProcesoVideo } from "@/components/landing/ProcesoVideo";
 import { Benefits } from "@/components/landing/sections";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { FAQ } from "@/components/landing/FAQ";
@@ -97,6 +98,12 @@ export default function ServiciosGraficosPage() {
           "Cuando eso llega a la prensa, ya es tarde y caro. El operario paga un problema que venía desde el arte.",
         ]}
         closing="Nosotros entramos antes. **Ahí es donde te acompañamos.**"
+      />
+
+      <ProcesoVideo
+        eyebrow="Dónde entramos"
+        title="De la idea al empaque: el proceso completo"
+        subtitle="Diseño y preprensa son los pasos donde se decide cómo va a salir tu empaque. Ahí trabajamos contigo."
       />
 
       <ProcesoPasos

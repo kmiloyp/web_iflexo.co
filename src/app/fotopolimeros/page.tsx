@@ -1,4 +1,5 @@
 import { Hero } from "@/components/landing/Hero";
+import { ProcesoVideo } from "@/components/landing/ProcesoVideo";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { VideoTestimonial } from "@/components/landing/VideoTestimonial";
 import { FAQ } from "@/components/landing/FAQ";
@@ -185,6 +186,12 @@ export default function FotopolimerosPage() {
             href: "/soluciones/banda-ancha/",
           },
         ]}
+      />
+
+      <ProcesoVideo
+        eyebrow="El recorrido completo"
+        title="Dónde entra la plancha en el camino al empaque"
+        subtitle="La plancha es el paso 4 de 6. Todo lo que pasa antes —diseño y preprensa— define cómo va a imprimir."
       />
 
       <ProcesoPasos

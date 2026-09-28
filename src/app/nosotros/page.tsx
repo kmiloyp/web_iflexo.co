@@ -1,4 +1,5 @@
 import { Hero } from "@/components/landing/Hero";
+import { ProcesoVideo } from "@/components/landing/ProcesoVideo";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { VideoTestimonial } from "@/components/landing/VideoTestimonial";
 import { FinalCTA } from "@/components/landing/FinalCTA";
@@ -118,6 +119,11 @@ export default function NosotrosPage() {
             beneficio: "Entregamos con criterio técnico, no a ojo.",
           },
         ]}
+      />
+
+      <ProcesoVideo
+        eyebrow="Nuestro proceso"
+        title="Así acompañamos tu trabajo, de la idea al empaque"
       />
 
       <ProcesoPasos

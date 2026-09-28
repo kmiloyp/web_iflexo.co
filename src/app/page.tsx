@@ -1,4 +1,5 @@
 import { Hero } from "@/components/landing/Hero";
+import { ProcesoVideo } from "@/components/landing/ProcesoVideo";
 import { Benefits } from "@/components/landing/sections";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { VideoTestimonial } from "@/components/landing/VideoTestimonial";
@@ -124,6 +125,8 @@ export default function Home() {
           { valor: "48h", label: "máximo de entrega" },
         ]}
       />
+
+      <ProcesoVideo className="bg-sand" />
 
       <Segmentos
         title="¿Qué imprimes?"
